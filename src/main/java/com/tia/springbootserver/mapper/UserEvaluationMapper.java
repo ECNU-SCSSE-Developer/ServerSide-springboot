@@ -1,7 +1,9 @@
 package com.tia.springbootserver.mapper;
 
 import com.tia.springbootserver.entity.UserEvaluation;
+import org.springframework.stereotype.Repository;
 
+@Repository
 public interface UserEvaluationMapper {
     int deleteByPrimaryKey(String studentId);
 

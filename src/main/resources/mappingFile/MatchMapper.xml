@@ -15,15 +15,15 @@
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
     <include refid="Base_Column_List" />
-    from Match
+    from `Match`
     where match_id = #{matchId,jdbcType=INTEGER}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
-    delete from Match
+    delete from `Match`
     where match_id = #{matchId,jdbcType=INTEGER}
   </delete>
   <insert id="insert" parameterType="com.tia.springbootserver.entity.Match" >
-    insert into Match (match_id, match_name, match_description, 
+    insert into `Match` (match_id, match_name, match_description,
       match_requirements, time, place
       )
     values (#{matchId,jdbcType=INTEGER}, #{matchName,jdbcType=VARCHAR}, #{matchDescription,jdbcType=VARCHAR}, 
@@ -31,7 +31,7 @@
       )
   </insert>
   <insert id="insertSelective" parameterType="com.tia.springbootserver.entity.Match" >
-    insert into Match
+    insert into `Match`
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="matchId != null" >
         match_id,
@@ -74,7 +74,7 @@
     </trim>
   </insert>
   <update id="updateByPrimaryKeySelective" parameterType="com.tia.springbootserver.entity.Match" >
-    update Match
+    update `Match`
     <set >
       <if test="matchName != null" >
         match_name = #{matchName,jdbcType=VARCHAR},
@@ -95,7 +95,7 @@
     where match_id = #{matchId,jdbcType=INTEGER}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.tia.springbootserver.entity.Match" >
-    update Match
+    update `Match`
     set match_name = #{matchName,jdbcType=VARCHAR},
       match_description = #{matchDescription,jdbcType=VARCHAR},
       match_requirements = #{matchRequirements,jdbcType=VARCHAR},

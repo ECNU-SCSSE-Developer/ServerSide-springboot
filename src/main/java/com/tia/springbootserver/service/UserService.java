@@ -4,4 +4,7 @@ import com.tia.springbootserver.entity.User;
 
 public interface UserService {
     User getById(String studentId);
+
+    int insertUser(User user);
+
 }

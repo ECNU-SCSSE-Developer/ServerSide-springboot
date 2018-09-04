@@ -1,7 +1,9 @@
 package com.tia.springbootserver.mapper;
 
 import com.tia.springbootserver.entity.Recruitment;
+import org.springframework.stereotype.Repository;
 
+@Repository
 public interface RecruitmentMapper {
     int deleteByPrimaryKey(Integer recruitId);
 

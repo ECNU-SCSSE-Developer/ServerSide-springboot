@@ -16,7 +16,6 @@ import java.util.Arrays;
 @ComponentScan("com.tia.springbootserver.service")
 public class SpringbootServerApplication {
 
-
     public static void main(String[] args) {
         SpringApplication.run(SpringbootServerApplication.class, args);
     }
