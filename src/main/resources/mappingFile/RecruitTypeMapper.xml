@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.tia.mapper.RecruitTypeMapper" >
+  <resultMap id="BaseResultMap" type="com.tia.entity.RecruitType" >
+    <id column="recruit_id" property="recruitId" jdbcType="INTEGER" />
+    <id column="recruit_type" property="recruitType" jdbcType="VARCHAR" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="map" >
+    delete from Recruit_Type
+    where recruit_id = #{recruitId,jdbcType=INTEGER}
+      and recruit_type = #{recruitType,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.tia.entity.RecruitType" >
+    insert into Recruit_Type (recruit_id, recruit_type)
+    values (#{recruitId,jdbcType=INTEGER}, #{recruitType,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.tia.entity.RecruitType" >
+    insert into Recruit_Type
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="recruitId != null" >
+        recruit_id,
+      </if>
+      <if test="recruitType != null" >
+        recruit_type,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="recruitId != null" >
+        #{recruitId,jdbcType=INTEGER},
+      </if>
+      <if test="recruitType != null" >
+        #{recruitType,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+</mapper>

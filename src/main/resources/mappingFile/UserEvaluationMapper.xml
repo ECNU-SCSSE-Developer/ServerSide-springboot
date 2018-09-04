@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.tia.mapper.UserEvaluationMapper" >
+  <resultMap id="BaseResultMap" type="com.tia.entity.UserEvaluation" >
+    <id column="student_id" property="studentId" jdbcType="VARCHAR" />
+    <result column="comments" property="comments" jdbcType="VARCHAR" />
+    <result column="ranks" property="ranks" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    student_id, comments, ranks
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from User_Evaluation
+    where student_id = #{studentId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from User_Evaluation
+    where student_id = #{studentId,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.tia.entity.UserEvaluation" >
+    insert into User_Evaluation (student_id, comments, ranks
+      )
+    values (#{studentId,jdbcType=VARCHAR}, #{comments,jdbcType=VARCHAR}, #{ranks,jdbcType=INTEGER}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.tia.entity.UserEvaluation" >
+    insert into User_Evaluation
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="studentId != null" >
+        student_id,
+      </if>
+      <if test="comments != null" >
+        comments,
+      </if>
+      <if test="ranks != null" >
+        ranks,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="studentId != null" >
+        #{studentId,jdbcType=VARCHAR},
+      </if>
+      <if test="comments != null" >
+        #{comments,jdbcType=VARCHAR},
+      </if>
+      <if test="ranks != null" >
+        #{ranks,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.tia.entity.UserEvaluation" >
+    update User_Evaluation
+    <set >
+      <if test="comments != null" >
+        comments = #{comments,jdbcType=VARCHAR},
+      </if>
+      <if test="ranks != null" >
+        ranks = #{ranks,jdbcType=INTEGER},
+      </if>
+    </set>
+    where student_id = #{studentId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.tia.entity.UserEvaluation" >
+    update User_Evaluation
+    set comments = #{comments,jdbcType=VARCHAR},
+      ranks = #{ranks,jdbcType=INTEGER}
+    where student_id = #{studentId,jdbcType=VARCHAR}
+  </update>
+</mapper>

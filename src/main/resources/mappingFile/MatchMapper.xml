@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.tia.mapper.MatchMapper" >
+  <resultMap id="BaseResultMap" type="com.tia.entity.Match" >
+    <id column="match_id" property="matchId" jdbcType="INTEGER" />
+    <result column="match_name" property="matchName" jdbcType="VARCHAR" />
+    <result column="match_description" property="matchDescription" jdbcType="VARCHAR" />
+    <result column="match_requirements" property="matchRequirements" jdbcType="VARCHAR" />
+    <result column="time" property="time" jdbcType="VARCHAR" />
+    <result column="place" property="place" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    match_id, match_name, match_description, match_requirements, time, place
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from Match
+    where match_id = #{matchId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from Match
+    where match_id = #{matchId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.tia.entity.Match" >
+    insert into Match (match_id, match_name, match_description, 
+      match_requirements, time, place
+      )
+    values (#{matchId,jdbcType=INTEGER}, #{matchName,jdbcType=VARCHAR}, #{matchDescription,jdbcType=VARCHAR}, 
+      #{matchRequirements,jdbcType=VARCHAR}, #{time,jdbcType=VARCHAR}, #{place,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.tia.entity.Match" >
+    insert into Match
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="matchId != null" >
+        match_id,
+      </if>
+      <if test="matchName != null" >
+        match_name,
+      </if>
+      <if test="matchDescription != null" >
+        match_description,
+      </if>
+      <if test="matchRequirements != null" >
+        match_requirements,
+      </if>
+      <if test="time != null" >
+        time,
+      </if>
+      <if test="place != null" >
+        place,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="matchId != null" >
+        #{matchId,jdbcType=INTEGER},
+      </if>
+      <if test="matchName != null" >
+        #{matchName,jdbcType=VARCHAR},
+      </if>
+      <if test="matchDescription != null" >
+        #{matchDescription,jdbcType=VARCHAR},
+      </if>
+      <if test="matchRequirements != null" >
+        #{matchRequirements,jdbcType=VARCHAR},
+      </if>
+      <if test="time != null" >
+        #{time,jdbcType=VARCHAR},
+      </if>
+      <if test="place != null" >
+        #{place,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.tia.entity.Match" >
+    update Match
+    <set >
+      <if test="matchName != null" >
+        match_name = #{matchName,jdbcType=VARCHAR},
+      </if>
+      <if test="matchDescription != null" >
+        match_description = #{matchDescription,jdbcType=VARCHAR},
+      </if>
+      <if test="matchRequirements != null" >
+        match_requirements = #{matchRequirements,jdbcType=VARCHAR},
+      </if>
+      <if test="time != null" >
+        time = #{time,jdbcType=VARCHAR},
+      </if>
+      <if test="place != null" >
+        place = #{place,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where match_id = #{matchId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.tia.entity.Match" >
+    update Match
+    set match_name = #{matchName,jdbcType=VARCHAR},
+      match_description = #{matchDescription,jdbcType=VARCHAR},
+      match_requirements = #{matchRequirements,jdbcType=VARCHAR},
+      time = #{time,jdbcType=VARCHAR},
+      place = #{place,jdbcType=VARCHAR}
+    where match_id = #{matchId,jdbcType=INTEGER}
+  </update>
+</mapper>

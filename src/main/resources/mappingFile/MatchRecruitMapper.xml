@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.tia.mapper.MatchRecruitMapper" >
+  <resultMap id="BaseResultMap" type="com.tia.entity.MatchRecruit" >
+    <id column="match_id" property="matchId" jdbcType="INTEGER" />
+    <id column="recruit_id" property="recruitId" jdbcType="INTEGER" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="map" >
+    delete from Match_Recruit
+    where match_id = #{matchId,jdbcType=INTEGER}
+      and recruit_id = #{recruitId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.tia.entity.MatchRecruit" >
+    insert into Match_Recruit (match_id, recruit_id)
+    values (#{matchId,jdbcType=INTEGER}, #{recruitId,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.tia.entity.MatchRecruit" >
+    insert into Match_Recruit
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="matchId != null" >
+        match_id,
+      </if>
+      <if test="recruitId != null" >
+        recruit_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="matchId != null" >
+        #{matchId,jdbcType=INTEGER},
+      </if>
+      <if test="recruitId != null" >
+        #{recruitId,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+</mapper>
