@@ -1,4 +1,4 @@
-package com.tia.entity;
+package com.tia.springbootserver.entity;
 
 public class User {
     private String studentId;

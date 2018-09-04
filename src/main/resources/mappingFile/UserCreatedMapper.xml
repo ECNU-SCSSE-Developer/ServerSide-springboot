@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.tia.mapper.UserCreatedMapper" >
-  <resultMap id="BaseResultMap" type="com.tia.entity.UserCreated" >
+<mapper namespace="com.tia.springbootserver.mapper.UserCreatedMapper" >
+  <resultMap id="BaseResultMap" type="com.tia.springbootserver.entity.UserCreated" >
     <id column="student_id" property="studentId" jdbcType="VARCHAR" />
     <id column="recruit_id" property="recruitId" jdbcType="INTEGER" />
   </resultMap>
@@ -10,11 +10,11 @@
     where student_id = #{studentId,jdbcType=VARCHAR}
       and recruit_id = #{recruitId,jdbcType=INTEGER}
   </delete>
-  <insert id="insert" parameterType="com.tia.entity.UserCreated" >
+  <insert id="insert" parameterType="com.tia.springbootserver.entity.UserCreated" >
     insert into User_Created (student_id, recruit_id)
     values (#{studentId,jdbcType=VARCHAR}, #{recruitId,jdbcType=INTEGER})
   </insert>
-  <insert id="insertSelective" parameterType="com.tia.entity.UserCreated" >
+  <insert id="insertSelective" parameterType="com.tia.springbootserver.entity.UserCreated" >
     insert into User_Created
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="studentId != null" >

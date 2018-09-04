@@ -1,6 +1,6 @@
-package com.tia.mapper;
+package com.tia.springbootserver.mapper;
 
-import com.tia.entity.Recruitment;
+import com.tia.springbootserver.entity.Recruitment;
 
 public interface RecruitmentMapper {
     int deleteByPrimaryKey(Integer recruitId);

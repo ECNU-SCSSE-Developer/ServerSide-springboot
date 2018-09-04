@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.tia.mapper.MatchMapper" >
-  <resultMap id="BaseResultMap" type="com.tia.entity.Match" >
+<mapper namespace="com.tia.springbootserver.mapper.MatchMapper" >
+  <resultMap id="BaseResultMap" type="com.tia.springbootserver.entity.Match" >
     <id column="match_id" property="matchId" jdbcType="INTEGER" />
     <result column="match_name" property="matchName" jdbcType="VARCHAR" />
     <result column="match_description" property="matchDescription" jdbcType="VARCHAR" />
@@ -22,7 +22,7 @@
     delete from Match
     where match_id = #{matchId,jdbcType=INTEGER}
   </delete>
-  <insert id="insert" parameterType="com.tia.entity.Match" >
+  <insert id="insert" parameterType="com.tia.springbootserver.entity.Match" >
     insert into Match (match_id, match_name, match_description, 
       match_requirements, time, place
       )
@@ -30,7 +30,7 @@
       #{matchRequirements,jdbcType=VARCHAR}, #{time,jdbcType=VARCHAR}, #{place,jdbcType=VARCHAR}
       )
   </insert>
-  <insert id="insertSelective" parameterType="com.tia.entity.Match" >
+  <insert id="insertSelective" parameterType="com.tia.springbootserver.entity.Match" >
     insert into Match
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="matchId != null" >
@@ -73,7 +73,7 @@
       </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.tia.entity.Match" >
+  <update id="updateByPrimaryKeySelective" parameterType="com.tia.springbootserver.entity.Match" >
     update Match
     <set >
       <if test="matchName != null" >
@@ -94,7 +94,7 @@
     </set>
     where match_id = #{matchId,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.tia.entity.Match" >
+  <update id="updateByPrimaryKey" parameterType="com.tia.springbootserver.entity.Match" >
     update Match
     set match_name = #{matchName,jdbcType=VARCHAR},
       match_description = #{matchDescription,jdbcType=VARCHAR},

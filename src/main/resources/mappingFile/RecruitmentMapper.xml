@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.tia.mapper.RecruitmentMapper" >
-  <resultMap id="BaseResultMap" type="com.tia.entity.Recruitment" >
+<mapper namespace="com.tia.springbootserver.mapper.RecruitmentMapper" >
+  <resultMap id="BaseResultMap" type="com.tia.springbootserver.entity.Recruitment" >
     <id column="recruit_id" property="recruitId" jdbcType="INTEGER" />
     <result column="recruit_name" property="recruitName" jdbcType="VARCHAR" />
     <result column="recruit_description" property="recruitDescription" jdbcType="VARCHAR" />
@@ -21,13 +21,13 @@
     delete from Recruitment
     where recruit_id = #{recruitId,jdbcType=INTEGER}
   </delete>
-  <insert id="insert" parameterType="com.tia.entity.Recruitment" >
+  <insert id="insert" parameterType="com.tia.springbootserver.entity.Recruitment" >
     insert into Recruitment (recruit_id, recruit_name, recruit_description, 
       recruit_requirements, registered_number)
     values (#{recruitId,jdbcType=INTEGER}, #{recruitName,jdbcType=VARCHAR}, #{recruitDescription,jdbcType=VARCHAR}, 
       #{recruitRequirements,jdbcType=VARCHAR}, #{registeredNumber,jdbcType=INTEGER})
   </insert>
-  <insert id="insertSelective" parameterType="com.tia.entity.Recruitment" >
+  <insert id="insertSelective" parameterType="com.tia.springbootserver.entity.Recruitment" >
     insert into Recruitment
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="recruitId != null" >
@@ -64,7 +64,7 @@
       </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.tia.entity.Recruitment" >
+  <update id="updateByPrimaryKeySelective" parameterType="com.tia.springbootserver.entity.Recruitment" >
     update Recruitment
     <set >
       <if test="recruitName != null" >
@@ -82,7 +82,7 @@
     </set>
     where recruit_id = #{recruitId,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.tia.entity.Recruitment" >
+  <update id="updateByPrimaryKey" parameterType="com.tia.springbootserver.entity.Recruitment" >
     update Recruitment
     set recruit_name = #{recruitName,jdbcType=VARCHAR},
       recruit_description = #{recruitDescription,jdbcType=VARCHAR},

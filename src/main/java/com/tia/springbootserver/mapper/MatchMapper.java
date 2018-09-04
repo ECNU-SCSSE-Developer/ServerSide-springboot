@@ -1,6 +1,6 @@
-package com.tia.mapper;
+package com.tia.springbootserver.mapper;
 
-import com.tia.entity.Match;
+import com.tia.springbootserver.entity.Match;
 
 public interface MatchMapper {
     int deleteByPrimaryKey(Integer matchId);

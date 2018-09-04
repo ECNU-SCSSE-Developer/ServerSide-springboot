@@ -1,6 +1,6 @@
-package com.tia.mapper;
+package com.tia.springbootserver.mapper;
 
-import com.tia.entity.UserCreated;
+import com.tia.springbootserver.entity.UserCreated;
 import org.apache.ibatis.annotations.Param;
 
 public interface UserCreatedMapper {

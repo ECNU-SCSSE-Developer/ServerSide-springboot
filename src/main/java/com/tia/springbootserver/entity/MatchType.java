@@ -1,9 +1,9 @@
-package com.tia.entity;
+package com.tia.springbootserver.entity;
 
-public class MatchRecruit {
+public class MatchType {
     private Integer matchId;
 
-    private Integer recruitId;
+    private String matchType;
 
     public Integer getMatchId() {
         return matchId;
@@ -13,12 +13,12 @@ public class MatchRecruit {
         this.matchId = matchId;
     }
 
-    public Integer getRecruitId() {
-        return recruitId;
+    public String getMatchType() {
+        return matchType;
     }
 
-    public void setRecruitId(Integer recruitId) {
-        this.recruitId = recruitId;
+    public void setMatchType(String matchType) {
+        this.matchType = matchType == null ? null : matchType.trim();
     }
 
     @Override
@@ -28,7 +28,7 @@ public class MatchRecruit {
         sb.append(" [");
         sb.append("Hash = ").append(hashCode());
         sb.append(", matchId=").append(matchId);
-        sb.append(", recruitId=").append(recruitId);
+        sb.append(", matchType=").append(matchType);
         sb.append("]");
         return sb.toString();
     }

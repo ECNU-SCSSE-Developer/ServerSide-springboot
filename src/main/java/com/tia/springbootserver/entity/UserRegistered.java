@@ -1,9 +1,17 @@
-package com.tia.entity;
+package com.tia.springbootserver.entity;
 
-public class RecruitType {
+public class UserRegistered {
+    private String studentId;
+
     private Integer recruitId;
 
-    private String recruitType;
+    public String getStudentId() {
+        return studentId;
+    }
+
+    public void setStudentId(String studentId) {
+        this.studentId = studentId == null ? null : studentId.trim();
+    }
 
     public Integer getRecruitId() {
         return recruitId;
@@ -13,22 +21,14 @@ public class RecruitType {
         this.recruitId = recruitId;
     }
 
-    public String getRecruitType() {
-        return recruitType;
-    }
-
-    public void setRecruitType(String recruitType) {
-        this.recruitType = recruitType == null ? null : recruitType.trim();
-    }
-
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append(getClass().getSimpleName());
         sb.append(" [");
         sb.append("Hash = ").append(hashCode());
+        sb.append(", studentId=").append(studentId);
         sb.append(", recruitId=").append(recruitId);
-        sb.append(", recruitType=").append(recruitType);
         sb.append("]");
         return sb.toString();
     }

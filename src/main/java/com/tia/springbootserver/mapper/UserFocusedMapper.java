@@ -1,6 +1,6 @@
-package com.tia.mapper;
+package com.tia.springbootserver.mapper;
 
-import com.tia.entity.UserFocused;
+import com.tia.springbootserver.entity.UserFocused;
 import org.apache.ibatis.annotations.Param;
 
 public interface UserFocusedMapper {

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.tia.mapper.UserMapper" >
-  <resultMap id="BaseResultMap" type="com.tia.entity.User" >
+<mapper namespace="com.tia.springbootserver.mapper.UserMapper" >
+  <resultMap id="BaseResultMap" type="com.tia.springbootserver.entity.User" >
     <id column="student_id" property="studentId" jdbcType="VARCHAR" />
     <result column="student_name" property="studentName" jdbcType="VARCHAR" />
     <result column="grade" property="grade" jdbcType="INTEGER" />
@@ -22,7 +22,7 @@
     delete from User
     where student_id = #{studentId,jdbcType=VARCHAR}
   </delete>
-  <insert id="insert" parameterType="com.tia.entity.User" >
+  <insert id="insert" parameterType="com.tia.springbootserver.entity.User" >
     insert into User (student_id, student_name, grade, 
       major, contacts, specialty
       )
@@ -30,7 +30,7 @@
       #{major,jdbcType=VARCHAR}, #{contacts,jdbcType=VARCHAR}, #{specialty,jdbcType=VARCHAR}
       )
   </insert>
-  <insert id="insertSelective" parameterType="com.tia.entity.User" >
+  <insert id="insertSelective" parameterType="com.tia.springbootserver.entity.User" >
     insert into User
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="studentId != null" >
@@ -73,7 +73,7 @@
       </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.tia.entity.User" >
+  <update id="updateByPrimaryKeySelective" parameterType="com.tia.springbootserver.entity.User" >
     update User
     <set >
       <if test="studentName != null" >
@@ -94,7 +94,7 @@
     </set>
     where student_id = #{studentId,jdbcType=VARCHAR}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.tia.entity.User" >
+  <update id="updateByPrimaryKey" parameterType="com.tia.springbootserver.entity.User" >
     update User
     set student_name = #{studentName,jdbcType=VARCHAR},
       grade = #{grade,jdbcType=INTEGER},

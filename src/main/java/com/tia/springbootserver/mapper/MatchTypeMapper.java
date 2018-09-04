@@ -1,6 +1,6 @@
-package com.tia.mapper;
+package com.tia.springbootserver.mapper;
 
-import com.tia.entity.MatchType;
+import com.tia.springbootserver.entity.MatchType;
 import org.apache.ibatis.annotations.Param;
 
 public interface MatchTypeMapper {

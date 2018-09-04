@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.tia.mapper.RecruitApplicantsMapper" >
-  <resultMap id="BaseResultMap" type="com.tia.entity.RecruitApplicants" >
+<mapper namespace="com.tia.springbootserver.mapper.RecruitApplicantsMapper" >
+  <resultMap id="BaseResultMap" type="com.tia.springbootserver.entity.RecruitApplicants" >
     <id column="recruit_id" property="recruitId" jdbcType="INTEGER" />
     <id column="applicant_id" property="applicantId" jdbcType="VARCHAR" />
   </resultMap>
@@ -10,11 +10,11 @@
     where recruit_id = #{recruitId,jdbcType=INTEGER}
       and applicant_id = #{applicantId,jdbcType=VARCHAR}
   </delete>
-  <insert id="insert" parameterType="com.tia.entity.RecruitApplicants" >
+  <insert id="insert" parameterType="com.tia.springbootserver.entity.RecruitApplicants" >
     insert into Recruit_Applicants (recruit_id, applicant_id)
     values (#{recruitId,jdbcType=INTEGER}, #{applicantId,jdbcType=VARCHAR})
   </insert>
-  <insert id="insertSelective" parameterType="com.tia.entity.RecruitApplicants" >
+  <insert id="insertSelective" parameterType="com.tia.springbootserver.entity.RecruitApplicants" >
     insert into Recruit_Applicants
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="recruitId != null" >

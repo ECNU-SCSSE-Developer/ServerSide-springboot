@@ -1,6 +1,6 @@
-package com.tia.mapper;
+package com.tia.springbootserver.mapper;
 
-import com.tia.entity.RecruitApplicants;
+import com.tia.springbootserver.entity.RecruitApplicants;
 import org.apache.ibatis.annotations.Param;
 
 public interface RecruitApplicantsMapper {

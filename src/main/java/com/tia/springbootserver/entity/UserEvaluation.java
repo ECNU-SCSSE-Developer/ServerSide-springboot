@@ -1,9 +1,11 @@
-package com.tia.entity;
+package com.tia.springbootserver.entity;
 
-public class UserFocused {
+public class UserEvaluation {
     private String studentId;
 
-    private Integer recruitId;
+    private String comments;
+
+    private Integer ranks;
 
     public String getStudentId() {
         return studentId;
@@ -13,12 +15,20 @@ public class UserFocused {
         this.studentId = studentId == null ? null : studentId.trim();
     }
 
-    public Integer getRecruitId() {
-        return recruitId;
+    public String getComments() {
+        return comments;
     }
 
-    public void setRecruitId(Integer recruitId) {
-        this.recruitId = recruitId;
+    public void setComments(String comments) {
+        this.comments = comments == null ? null : comments.trim();
+    }
+
+    public Integer getRanks() {
+        return ranks;
+    }
+
+    public void setRanks(Integer ranks) {
+        this.ranks = ranks;
     }
 
     @Override
@@ -28,7 +38,8 @@ public class UserFocused {
         sb.append(" [");
         sb.append("Hash = ").append(hashCode());
         sb.append(", studentId=").append(studentId);
-        sb.append(", recruitId=").append(recruitId);
+        sb.append(", comments=").append(comments);
+        sb.append(", ranks=").append(ranks);
         sb.append("]");
         return sb.toString();
     }

@@ -7,13 +7,13 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
-import org.springframework.stereotype.Controller;
 
 import java.util.Arrays;
 
 @SpringBootApplication
-@MapperScan("com.tia.mapper")
-@ComponentScan("com.tia.controller")
+@MapperScan("com.tia.springbootserver.mapper")
+@ComponentScan("com.tia.springbootserver.controller")
+@ComponentScan("com.tia.springbootserver.service")
 public class SpringbootServerApplication {
 
 

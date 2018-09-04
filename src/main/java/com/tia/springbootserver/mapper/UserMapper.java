@@ -1,6 +1,6 @@
-package com.tia.mapper;
+package com.tia.springbootserver.mapper;
 
-import com.tia.entity.User;
+import com.tia.springbootserver.entity.User;
 
 public interface UserMapper {
     int deleteByPrimaryKey(String studentId);
