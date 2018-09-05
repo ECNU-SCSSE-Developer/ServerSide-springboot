@@ -14,6 +14,7 @@ import java.util.Arrays;
 @MapperScan("com.tia.springbootserver.mapper")
 @ComponentScan("com.tia.springbootserver.controller")
 @ComponentScan("com.tia.springbootserver.service")
+@ComponentScan("com.tia.springbootserver.entity")
 public class SpringbootServerApplication {
 
     public static void main(String[] args) {
@@ -24,13 +25,13 @@ public class SpringbootServerApplication {
     public CommandLineRunner commandLineRunner(ApplicationContext ctx) {
         return args -> {
 
-            System.out.println("Let's inspect the beans provided by Spring Boot:");
-
-            String[] beanNames = ctx.getBeanDefinitionNames();
-            Arrays.sort(beanNames);
-            for (String beanName : beanNames) {
-                System.out.println(beanName);
-            }
+//            System.out.println("Let's inspect the beans provided by Spring Boot:");
+//
+//            String[] beanNames = ctx.getBeanDefinitionNames();
+//            Arrays.sort(beanNames);
+//            for (String beanName : beanNames) {
+//                System.out.println(beanName);
+//            }
 
         };
     }

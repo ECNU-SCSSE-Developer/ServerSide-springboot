@@ -27,7 +27,8 @@
     values (#{recruitId,jdbcType=INTEGER}, #{recruitName,jdbcType=VARCHAR}, #{recruitDescription,jdbcType=VARCHAR}, 
       #{recruitRequirements,jdbcType=VARCHAR}, #{registeredNumber,jdbcType=INTEGER})
   </insert>
-  <insert id="insertSelective" parameterType="com.tia.springbootserver.entity.Recruitment" >
+  <insert id="insertSelective" parameterType="com.tia.springbootserver.entity.Recruitment" useGeneratedKeys="true"
+          keyProperty="recruitId" >
     insert into Recruitment
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="recruitId != null" >

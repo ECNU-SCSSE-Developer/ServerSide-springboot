@@ -20,8 +20,7 @@ public class MatchServiceImpl implements MatchService {
     public PageInfo<Match> findAllMatch(Integer pageNum, Integer pageSize) {
         PageHelper.startPage(pageNum, pageSize);
         List<Match> matchList = matchMapper.selectAll();
-        PageInfo result = new PageInfo(matchList);
-        return result;
+        return new PageInfo(matchList);
     }
 
     @Override
@@ -33,7 +32,6 @@ public class MatchServiceImpl implements MatchService {
     public PageInfo<Match> findMatchByName(String matchName,Integer pageNum, Integer pageSize){
         PageHelper.startPage(pageNum, pageSize);
         List<Match> matchList = matchMapper.selectByName(matchName);
-        PageInfo result = new PageInfo(matchList);
-        return result;
+        return new PageInfo(matchList);
     }
 }

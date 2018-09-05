@@ -13,7 +13,7 @@ public class MatchController {
     @Autowired
     private MatchService matchService;
 
-    @RequestMapping(value = "/match/all", produces = {"application/json;charset=UTF-8"})
+    @RequestMapping(value = "/match/get/all", produces = {"application/json;charset=UTF-8"})
     public Object getAllMatchOnPage(
             @RequestParam(name = "pageNum", required = false, defaultValue = "1")
                     Integer pageNum,
@@ -22,12 +22,12 @@ public class MatchController {
         return matchService.findAllMatch(pageNum,pageSize);
     }
 
-    @RequestMapping(value = "/match/getById", produces = {"application/json;charset=UTF-8"})
+    @RequestMapping(value = "/match/get/id", produces = {"application/json;charset=UTF-8"})
     public Object getMatchById(Integer matchId){
         return matchService.getMatchById(matchId);
     }
 
-    @RequestMapping(value = "/match/getByName", produces = {"application/json;charset=UTF-8"})
+    @RequestMapping(value = "/match/get/name", produces = {"application/json;charset=UTF-8"})
     public Object getMatchByName(String matchName,
                                  @RequestParam(name = "pageNum", required = false, defaultValue = "1")
                                          Integer pageNum,
