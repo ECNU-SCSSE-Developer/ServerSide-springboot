@@ -1,18 +1,26 @@
 server:
   port: 8080
+  tomcat:
+    uri-encoding: UTF-8
 
 spring:
   datasource:
     name: testCase
-    url: jdbc:mysql://127.0.0.1:3306/test
-    username: root
+    url: jdbc:mysql://127.0.0.1:3306/test?useUnicode=true&characterEncoding=UTF-8
+    username: test
     password:
+  http:
+    encoding:
+      force: true
+      charset: UTF-8
+      enabled: true
 
 mybatis:
   mapper-locations: classpath:mappingFile/*.xml  #注意：一定要对应mapper映射xml文件的所在路径
   type-aliases-package: com.tia.springbootserver.entity  # 注意：对应实体类的路径
   configuration:
     map-underscore-to-camel-case: true
+
 
 #pagehelper分页插件
 pagehelper:
