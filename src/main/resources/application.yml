@@ -7,12 +7,26 @@ spring:
     url: jdbc:mysql://127.0.0.1:3306/test
     username: root
     password:
+  redis:
+    database: 0 #使用redis的db0分片
+    host: 118.25.176.85
+    port: 6379
+    password: ecnuscssetia
+    jedis:
+      pool:
+        max-idle: 8
+        max-wait: -1
+        max-active: 10
+        min-idle: 0
+    timeout: 10000 #连接超时时间
 
 mybatis:
   mapper-locations: classpath:mappingFile/*.xml  #注意：一定要对应mapper映射xml文件的所在路径
   type-aliases-package: com.tia.springbootserver.entity  # 注意：对应实体类的路径
   configuration:
     map-underscore-to-camel-case: true
+
+
 
 #pagehelper分页插件
 pagehelper:
