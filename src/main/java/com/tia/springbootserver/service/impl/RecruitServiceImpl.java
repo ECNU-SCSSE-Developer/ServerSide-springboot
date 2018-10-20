@@ -64,6 +64,14 @@ public class RecruitServiceImpl implements RecruitService {
     }
 
     @Override
+    public PageInfo<Recruitment> findAllRecruit(Integer pageNum, Integer pageSize) {
+        PageHelper.startPage(pageNum, pageSize);
+        PageInfo<Recruitment> result = new PageInfo(recruitmentMapper.selectAll());
+        return result;
+    }
+
+
+    @Override
     public int deleteRecruit(Integer recruitId) {
         return recruitmentMapper.deleteByPrimaryKey(recruitId);
     }

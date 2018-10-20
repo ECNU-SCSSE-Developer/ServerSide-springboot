@@ -15,7 +15,7 @@ public interface MatchRecruitMapper {
     int insertSelective(MatchRecruit record);
 
     @Select("SELECT match_id FROM Match_Recruit\n" +
-            "WHERE recruit_id = recruitId;")
+            "WHERE recruit_id = recruitId")
     int selectByRecruitId(Integer matchId);
 
     @Delete("DELETE FROM `Match_Recruit` WHERE recruit_id = #{recruitId}")

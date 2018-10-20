@@ -55,6 +55,16 @@ public class RecruitController {
         return recruitService.findRecruitByName(recruitName,pageNum,pageSize);
     }
 
+
+    @RequestMapping(value = "/recruit/get/all", produces = {"application/json;charset=UTF-8"})
+    public Object getAllRecruit(@RequestParam(name = "pageNum", required = false, defaultValue = "1")
+                                           Integer pageNum,
+                                @RequestParam(name = "pageSize", required = false, defaultValue = "10")
+                                           Integer pageSize){
+        return recruitService.findAllRecruit(pageNum,pageSize);
+    }
+
+
     @RequestMapping(value = "/recruit/delete", produces = {"application/json;charset=UTF-8"})
     public Object deleteRecruit(Integer recruitId){
         recruitService.unBindFromMatch(recruitId);

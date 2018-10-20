@@ -8,6 +8,7 @@ public interface RecruitService {
     int createRecruit(Recruitment recruitment);
     int createRecruitWithId(Recruitment recruitment);
     int updateRecruitInfo(Recruitment recruitment);
+    PageInfo<Recruitment> findAllRecruit(Integer pageNum, Integer pageSize);
     Recruitment findRecruitById(Integer recruitId);
     PageInfo<Recruitment> findRecruitByName(String recruitName,Integer pageNum, Integer pageSize);
     int deleteRecruit(Integer recruitId);

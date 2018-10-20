@@ -3,10 +3,10 @@ server:
 
 spring:
   datasource:
-    name: testCase
-    url: jdbc:mysql://127.0.0.1:3306/test
+    name: test
+    url: jdbc:mysql://127.0.0.1:3306/test?useSSL=true
     username: root
-    password:
+    password: ecnuscssetia
   redis:
     database: 0 #使用redis的db0分片
     host: 118.25.176.85
