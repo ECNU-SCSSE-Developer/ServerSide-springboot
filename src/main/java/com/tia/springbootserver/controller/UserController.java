@@ -4,9 +4,7 @@ package com.tia.springbootserver.controller;
 import com.tia.springbootserver.entity.User;
 import com.tia.springbootserver.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 public class UserController {
@@ -14,29 +12,23 @@ public class UserController {
     @Autowired
     private UserService userService;
 
-    // TODO():
-    @RequestMapping("/user")
-    public String index(){
-        return "UserController is here.";
-    }
 
-
-    @RequestMapping(value = "/user/get", produces = {"application/json;charset=UTF-8"})
+    @GetMapping(value = "/user", produces = {"application/json;charset=UTF-8"})
     public Object getUserById(String studentId)
     {
         return userService.getById(studentId);
     }
 
-    @RequestMapping(value = "/user/create", produces = {"application/json;charset=UTF-8"})
+    @PostMapping(value = "/user", produces = {"application/json;charset=UTF-8"})
     public Object createUser(User user)
     {
         return userService.insertUser(user);
     }
 
-    @RequestMapping(value = "/user/update", produces = {"application/json;charset=UTF-8"})
+    @PutMapping(value = "/user", produces = {"application/json;charset=UTF-8"})
     public Object updateUserInfo(User user){return userService.updateUserInfo(user);}
 
-    @RequestMapping(value = "/user/get/focused", produces = {"application/json;charset=UTF-8"})
+    @GetMapping(value = "/user/focused", produces = {"application/json;charset=UTF-8"})
     public Object getFocusedRecruitment(String studentId,
                                         @RequestParam(name = "pageNum", required = false, defaultValue = "1")
                                                 Integer pageNum,
@@ -45,18 +37,18 @@ public class UserController {
         return userService.getFocusedRecruitment(studentId,pageNum,pageSize);
     }
 
-    @RequestMapping(value = "/user/add/focused", produces = {"application/json;charset=UTF-8"})
+    @PostMapping(value = "/user/focused", produces = {"application/json;charset=UTF-8"})
     public Object addFocusedRecruitment(String studentId, Integer recruitId){
         return userService.addFocusedRecruitment(studentId, recruitId);
     };
 
-    @RequestMapping(value = "/user/delete/focused", produces = {"application/json;charset=UTF-8"})
+    @DeleteMapping(value = "/user/focused", produces = {"application/json;charset=UTF-8"})
     public Object deleteFocusedRecruitment(String studentId, Integer recruitId){
         return userService.deleteFocusedRecruitment(studentId, recruitId);
     };
 
 
-    @RequestMapping(value = "/user/get/registered", produces = {"application/json;charset=UTF-8"})
+    @GetMapping(value = "/user/registered", produces = {"application/json;charset=UTF-8"})
     public Object getRegisteredRecruitment(String studentId,
                                            @RequestParam(name = "pageNum", required = false, defaultValue = "1")
                                                    Integer pageNum,
@@ -65,7 +57,7 @@ public class UserController {
         return userService.getRegisteredRecruitment(studentId,pageNum,pageSize);
     }
 
-    @RequestMapping(value = "/user/get/created", produces = {"application/json;charset=UTF-8"})
+    @GetMapping(value = "/user/created", produces = {"application/json;charset=UTF-8"})
     public Object getCreatedRecruitment(String studentId,
                                         @RequestParam(name = "pageNum", required = false, defaultValue = "1")
                                                 Integer pageNum,
@@ -74,7 +66,7 @@ public class UserController {
         return userService.getCreatedRecruitment(studentId,pageNum,pageSize);
     }
 
-    @RequestMapping(value = "/user/accept", produces = {"application/json;charset=UTF-8"})
+    @PutMapping(value = "/user/accept", produces = {"application/json;charset=UTF-8"})
     public Object acceptUser(Integer recruitId, @RequestParam(name = "studentId") String applicantId){
         return userService.acceptUser(recruitId,applicantId);
     }
