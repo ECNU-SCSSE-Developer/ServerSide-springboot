@@ -1,5 +1,9 @@
 package com.tia.springbootserver.entity;
 
+import org.springframework.context.annotation.Bean;
+
+import java.util.Date;
+
 public class Match {
     private Integer matchId;
 
@@ -12,6 +16,8 @@ public class Match {
     private String time;
 
     private String place;
+
+    private Date deadline;
 
     public Integer getMatchId() {
         return matchId;
@@ -61,6 +67,14 @@ public class Match {
         this.place = place == null ? null : place.trim();
     }
 
+    public Date getDeadline() {
+        return deadline;
+    }
+
+    public void setDeadline(Date deadline) {
+        this.deadline = deadline;
+    }
+
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
@@ -73,6 +87,7 @@ public class Match {
         sb.append(", matchRequirements=").append(matchRequirements);
         sb.append(", time=").append(time);
         sb.append(", place=").append(place);
+        sb.append(", deadline=").append(deadline);
         sb.append("]");
         return sb.toString();
     }

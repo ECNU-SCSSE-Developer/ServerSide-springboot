@@ -9,9 +9,11 @@ public class User {
 
     private String major;
 
+    private String specialty;
+
     private String contacts;
 
-    private String specialty;
+    private String openid;
 
     public String getStudentId() {
         return studentId;
@@ -45,6 +47,14 @@ public class User {
         this.major = major == null ? null : major.trim();
     }
 
+    public String getSpecialty() {
+        return specialty;
+    }
+
+    public void setSpecialty(String specialty) {
+        this.specialty = specialty == null ? null : specialty.trim();
+    }
+
     public String getContacts() {
         return contacts;
     }
@@ -53,12 +63,12 @@ public class User {
         this.contacts = contacts == null ? null : contacts.trim();
     }
 
-    public String getSpecialty() {
-        return specialty;
+    public String getOpenid() {
+        return openid;
     }
 
-    public void setSpecialty(String specialty) {
-        this.specialty = specialty == null ? null : specialty.trim();
+    public void setOpenid(String openid) {
+        this.openid = openid == null ? null : openid.trim();
     }
 
     @Override
@@ -71,8 +81,9 @@ public class User {
         sb.append(", studentName=").append(studentName);
         sb.append(", grade=").append(grade);
         sb.append(", major=").append(major);
-        sb.append(", contacts=").append(contacts);
         sb.append(", specialty=").append(specialty);
+        sb.append(", contacts=").append(contacts);
+        sb.append(", openid=").append(openid);
         sb.append("]");
         return sb.toString();
     }

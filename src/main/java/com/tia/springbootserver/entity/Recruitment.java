@@ -1,5 +1,4 @@
 package com.tia.springbootserver.entity;
-
 public class Recruitment {
     private Integer recruitId;
 
@@ -10,6 +9,10 @@ public class Recruitment {
     private String recruitRequirements;
 
     private Integer registeredNumber;
+
+    private Integer matchId;
+
+    private String studentId;
 
     public Integer getRecruitId() {
         return recruitId;
@@ -51,6 +54,22 @@ public class Recruitment {
         this.registeredNumber = registeredNumber;
     }
 
+    public Integer getMatchId() {
+        return matchId;
+    }
+
+    public void setMatchId(Integer matchId) {
+        this.matchId = matchId;
+    }
+
+    public String getStudentId() {
+        return studentId;
+    }
+
+    public void setStudentId(String studentId) {
+        this.studentId = studentId == null ? null : studentId.trim();
+    }
+
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
@@ -62,6 +81,8 @@ public class Recruitment {
         sb.append(", recruitDescription=").append(recruitDescription);
         sb.append(", recruitRequirements=").append(recruitRequirements);
         sb.append(", registeredNumber=").append(registeredNumber);
+        sb.append(", matchId=").append(matchId);
+        sb.append(", studentId=").append(studentId);
         sb.append("]");
         return sb.toString();
     }

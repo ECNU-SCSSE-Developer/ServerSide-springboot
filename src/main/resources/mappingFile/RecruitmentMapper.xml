@@ -1,94 +1,118 @@
-<?xml version="1.0" encoding="UTF-8" ?>
-<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.tia.springbootserver.mapper.RecruitmentMapper" >
-  <resultMap id="BaseResultMap" type="com.tia.springbootserver.entity.Recruitment" >
-    <id column="recruit_id" property="recruitId" jdbcType="INTEGER" />
-    <result column="recruit_name" property="recruitName" jdbcType="VARCHAR" />
-    <result column="recruit_description" property="recruitDescription" jdbcType="VARCHAR" />
-    <result column="recruit_requirements" property="recruitRequirements" jdbcType="VARCHAR" />
-    <result column="registered_number" property="registeredNumber" jdbcType="INTEGER" />
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tia.springbootserver.mapper.RecruitmentMapper">
+  <resultMap id="BaseResultMap" type="com.tia.springbootserver.entity.Recruitment">
+    <id column="recruit_id" jdbcType="INTEGER" property="recruitId" />
+    <result column="recruit_name" jdbcType="VARCHAR" property="recruitName" />
+    <result column="recruit_description" jdbcType="VARCHAR" property="recruitDescription" />
+    <result column="recruit_requirements" jdbcType="VARCHAR" property="recruitRequirements" />
+    <result column="registered_number" jdbcType="INTEGER" property="registeredNumber" />
+    <result column="match_id" jdbcType="INTEGER" property="matchId" />
+    <result column="student_id" jdbcType="VARCHAR" property="studentId" />
   </resultMap>
-  <sql id="Base_Column_List" >
-    recruit_id, recruit_name, recruit_description, recruit_requirements, registered_number
+  <sql id="Base_Column_List">
+    recruit_id, recruit_name, recruit_description, recruit_requirements, registered_number, 
+    match_id, student_id
   </sql>
-  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
     from Recruitment
     where recruit_id = #{recruitId,jdbcType=INTEGER}
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from Recruitment
     where recruit_id = #{recruitId,jdbcType=INTEGER}
   </delete>
-  <insert id="insert" parameterType="com.tia.springbootserver.entity.Recruitment" >
+  <insert id="insert" parameterType="com.tia.springbootserver.entity.Recruitment">
     insert into Recruitment (recruit_id, recruit_name, recruit_description, 
-      recruit_requirements, registered_number)
+      recruit_requirements, registered_number, 
+      match_id, student_id)
     values (#{recruitId,jdbcType=INTEGER}, #{recruitName,jdbcType=VARCHAR}, #{recruitDescription,jdbcType=VARCHAR}, 
-      #{recruitRequirements,jdbcType=VARCHAR}, #{registeredNumber,jdbcType=INTEGER})
+      #{recruitRequirements,jdbcType=VARCHAR}, #{registeredNumber,jdbcType=INTEGER}, 
+      #{matchId,jdbcType=INTEGER}, #{studentId,jdbcType=VARCHAR})
   </insert>
-  <insert id="insertSelective" parameterType="com.tia.springbootserver.entity.Recruitment" useGeneratedKeys="true"
-          keyProperty="recruitId" >
+  <insert id="insertSelective" parameterType="com.tia.springbootserver.entity.Recruitment">
     insert into Recruitment
-    <trim prefix="(" suffix=")" suffixOverrides="," >
-      <if test="recruitId != null" >
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="recruitId != null">
         recruit_id,
       </if>
-      <if test="recruitName != null" >
+      <if test="recruitName != null">
         recruit_name,
       </if>
-      <if test="recruitDescription != null" >
+      <if test="recruitDescription != null">
         recruit_description,
       </if>
-      <if test="recruitRequirements != null" >
+      <if test="recruitRequirements != null">
         recruit_requirements,
       </if>
-      <if test="registeredNumber != null" >
+      <if test="registeredNumber != null">
         registered_number,
       </if>
+      <if test="matchId != null">
+        match_id,
+      </if>
+      <if test="studentId != null">
+        student_id,
+      </if>
     </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides="," >
-      <if test="recruitId != null" >
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="recruitId != null">
         #{recruitId,jdbcType=INTEGER},
       </if>
-      <if test="recruitName != null" >
+      <if test="recruitName != null">
         #{recruitName,jdbcType=VARCHAR},
       </if>
-      <if test="recruitDescription != null" >
+      <if test="recruitDescription != null">
         #{recruitDescription,jdbcType=VARCHAR},
       </if>
-      <if test="recruitRequirements != null" >
+      <if test="recruitRequirements != null">
         #{recruitRequirements,jdbcType=VARCHAR},
       </if>
-      <if test="registeredNumber != null" >
+      <if test="registeredNumber != null">
         #{registeredNumber,jdbcType=INTEGER},
+      </if>
+      <if test="matchId != null">
+        #{matchId,jdbcType=INTEGER},
+      </if>
+      <if test="studentId != null">
+        #{studentId,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.tia.springbootserver.entity.Recruitment" >
+  <update id="updateByPrimaryKeySelective" parameterType="com.tia.springbootserver.entity.Recruitment">
     update Recruitment
-    <set >
-      <if test="recruitName != null" >
+    <set>
+      <if test="recruitName != null">
         recruit_name = #{recruitName,jdbcType=VARCHAR},
       </if>
-      <if test="recruitDescription != null" >
+      <if test="recruitDescription != null">
         recruit_description = #{recruitDescription,jdbcType=VARCHAR},
       </if>
-      <if test="recruitRequirements != null" >
+      <if test="recruitRequirements != null">
         recruit_requirements = #{recruitRequirements,jdbcType=VARCHAR},
       </if>
-      <if test="registeredNumber != null" >
+      <if test="registeredNumber != null">
         registered_number = #{registeredNumber,jdbcType=INTEGER},
+      </if>
+      <if test="matchId != null">
+        match_id = #{matchId,jdbcType=INTEGER},
+      </if>
+      <if test="studentId != null">
+        student_id = #{studentId,jdbcType=VARCHAR},
       </if>
     </set>
     where recruit_id = #{recruitId,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.tia.springbootserver.entity.Recruitment" >
+  <update id="updateByPrimaryKey" parameterType="com.tia.springbootserver.entity.Recruitment">
     update Recruitment
     set recruit_name = #{recruitName,jdbcType=VARCHAR},
       recruit_description = #{recruitDescription,jdbcType=VARCHAR},
       recruit_requirements = #{recruitRequirements,jdbcType=VARCHAR},
-      registered_number = #{registeredNumber,jdbcType=INTEGER}
+      registered_number = #{registeredNumber,jdbcType=INTEGER},
+      match_id = #{matchId,jdbcType=INTEGER},
+      student_id = #{studentId,jdbcType=VARCHAR}
     where recruit_id = #{recruitId,jdbcType=INTEGER}
   </update>
 </mapper>
