@@ -48,16 +48,12 @@ public class RecruitController {
         Integer pageNum = pageNumString!=null ? Integer.parseInt(pageNumString) : 1 ;
         Integer pageSize = pageSizeString!=null ? Integer.parseInt(pageSizeString) : 10 ;
         //
-        if (recruitIdString.length()!=0) {
+        if (recruitIdString!=null)
             return recruitService.findRecruitById(Integer.parseInt(recruitIdString));
-        }
-        else if(recruitNameString.length()!=0) {
+        else if(recruitNameString!=null)
             return recruitService.findRecruitByName(recruitNameString,pageNum,pageSize);
-        }
         else
-        {
             return recruitService.findRecruitById(0);
-        }
     }
 
 
@@ -97,6 +93,12 @@ public class RecruitController {
         return recruitService.deleteRecruit(recruitId);
     }
 
+    @GetMapping(value = "/recruit/bind-match", produces = {"application/json;charset=UTF-8"})
+    public Object getBindMatch(Integer recruitId){
+        return recruitService.getBindMatch(recruitId);
+    }
+
+
     //申请
     @PostMapping(value = "/applicant", produces = {"application/json;charset=UTF-8"})
     public Object registerRecruit(RecruitApplicants recruitApplicants){
@@ -108,10 +110,6 @@ public class RecruitController {
         return recruitService.unregister(recruitApplicants);
     }
 
-    @GetMapping(value = "/recruit/bind-match", produces = {"application/json;charset=UTF-8"})
-    public Object getBindMatch(Integer recruitId){
-        return recruitService.getBindMatch(recruitId);
-    }
 
     @GetMapping(value = "/applicant", produces = {"application/json;charset=UTF-8"})
     public Object getApplicantsInfo(Integer recruitId,
