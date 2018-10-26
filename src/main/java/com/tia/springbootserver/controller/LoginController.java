@@ -5,6 +5,7 @@ import com.tia.springbootserver.service.LoginService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestAttribute;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -24,9 +25,13 @@ public class LoginController {
      * @param code
      */
     @GetMapping(value = "/onLogin")
-    public SessionId onLogin(@RequestParam(name = "code") String code){
+    public SessionId onLogin(@RequestParam(name = "code") String code) {
         SessionId sessionid = loginService.getWxSession(code);
         return sessionid;
     }
 
+    @GetMapping(value = "/test")
+    public String test(@RequestAttribute(name = "openid") String openid) {
+        return openid;
+    }
 }
