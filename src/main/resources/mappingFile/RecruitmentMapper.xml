@@ -32,7 +32,7 @@
       #{recruitRequirements,jdbcType=VARCHAR}, #{registeredNumber,jdbcType=INTEGER}, 
       #{matchId,jdbcType=INTEGER}, #{studentId,jdbcType=VARCHAR})
   </insert>
-  <insert id="insertSelective" parameterType="com.tia.springbootserver.entity.Recruitment">
+  <insert id="insertSelective" parameterType="com.tia.springbootserver.entity.Recruitment" keyProperty="recruitId" useGeneratedKeys="true">
     insert into Recruitment
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="recruitId != null">
