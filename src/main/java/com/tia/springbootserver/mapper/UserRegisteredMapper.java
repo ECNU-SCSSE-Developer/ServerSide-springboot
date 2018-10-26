@@ -20,4 +20,8 @@ public interface UserRegisteredMapper {
             "WHERE recruit_id IN\n" +
             "(SELECT recruit_id FROM User_Registered WHERE student_id=#{studentId})")
     List<Recruitment> selectByUserId(String studentId);
+
+    @Select("SELECT * FROM `User_Registered`\n" +
+            "WHERE student_id=#{studentId} and recruit_id = #{recruitId}")
+    UserRegistered selectUserRegistered(@Param("studentId") String studentId, @Param("recruitId") Integer recruitId);
 }

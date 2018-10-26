@@ -1,4 +1,8 @@
 package com.tia.springbootserver.entity;
+
+import org.springframework.context.annotation.Configuration;
+
+@Configuration
 public class Recruitment {
     private Integer recruitId;
 
@@ -13,6 +17,26 @@ public class Recruitment {
     private Integer matchId;
 
     private String studentId;
+
+    private String matchName;
+
+    private Integer willingNumber;
+
+    public String getMatchName() {
+        return matchName;
+    }
+
+    public void setMatchName(String matchName) {
+        this.matchName = matchName;
+    }
+
+    public Integer getWillingNumber() {
+        return willingNumber;
+    }
+
+    public void setWillingNumber(Integer willingNumber) {
+        this.willingNumber = willingNumber;
+    }
 
     public Integer getRecruitId() {
         return recruitId;

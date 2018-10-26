@@ -8,32 +8,38 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.servlet.http.HttpServletRequest;
+
 @RestController
 public class MatchController {
 
     @Autowired
     private MatchService matchService;
 
-    @GetMapping(value = "/match/all",produces = {"application/json;charset=UTF-8"})
-    public Object getAllMatchOnPage(
-            @RequestParam(name = "pageNum", required = false, defaultValue = "1")
-                    Integer pageNum,
-            @RequestParam(name = "pageSize", required = false, defaultValue = "10")
-                    Integer pageSize){
-        return matchService.findAllMatch(pageNum,pageSize);
+
+    @GetMapping(value = "/match",produces = {"application/json;charset=UTF-8"})
+    public Object getMatch(HttpServletRequest request)
+    {
+        //
+        String pageNumString = request.getParameter("pageNum");
+        String pageSizeString = request.getParameter("pageSize");
+        Integer pageNum = pageNumString!=null ? Integer.parseInt(pageNumString) : 1 ;
+        Integer pageSize = pageSizeString!=null ? Integer.parseInt(pageSizeString) : 10 ;
+        //
+        String selectAllString = request.getParameter("selectAll");
+        //
+        String matchIdString = request.getParameter("recruitId");
+        String matchNameString = request.getParameter("recruitName");
+        //
+        if(selectAllString!=null)
+            return matchService.findAllMatch(pageNum,pageSize);
+        else if(matchIdString!=null)
+            return matchService.getMatchById(Integer.parseInt(matchIdString));
+        else if(matchNameString!=null)
+            return matchService.findMatchByName(matchNameString,pageNum,pageSize);
+        else
+            return matchService.getMatchById(-1);
     }
 
-    @GetMapping(value = "/match/id", produces = {"application/json;charset=UTF-8"})
-    public Object getMatchById(Integer matchId){
-        return matchService.getMatchById(matchId);
-    }
 
-    @GetMapping(value = "/match/name", produces = {"application/json;charset=UTF-8"})
-    public Object getMatchByName(String matchName,
-                                 @RequestParam(name = "pageNum", required = false, defaultValue = "1")
-                                         Integer pageNum,
-                                 @RequestParam(name = "pageSize", required = false, defaultValue = "10")
-                                             Integer pageSize){
-        return matchService.findMatchByName(matchName,pageNum,pageSize);
-    }
 }

@@ -20,4 +20,8 @@ public interface UserFocusedMapper {
             "WHERE recruit_id IN\n" +
             "(SELECT recruit_id FROM User_Focused WHERE student_id=#{studentId})")
     List<Recruitment> selectByUserId(String studentId);
+
+    @Select("SELECT * FROM `User_Focused`\n" +
+            "WHERE recruit_id = #{recruitId} and student_id = #{studentId}")
+    UserFocused selectUserFocused(@Param("recruitId")Integer recruitId,@Param("studentId") String studentId);
 }

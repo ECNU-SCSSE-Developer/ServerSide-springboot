@@ -20,4 +20,8 @@ public interface RecruitApplicantsMapper {
             "WHERE student_id IN \n" +
             "(SELECT applicant_id FROM `Recruit_Applicants` WHERE recruit_id = #{recruitId})")
     List<User> selectUserByRecruitId(Integer recruitId);
+
+    @Select("SELECT * FROM `Recruit_Applicants`\n" +
+            "WHERE recruit_id=#{recruitId} and applicant_id=#{applicantId}")
+    RecruitApplicants selectRecruitApplicants(@Param("recruitId") Integer recruitId, @Param("applicantId") String applicantId);
 }

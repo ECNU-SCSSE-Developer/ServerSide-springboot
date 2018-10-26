@@ -13,6 +13,7 @@ public interface UserService {
     PageInfo<Recruitment> getRegisteredRecruitment(String studentId,Integer pageNum, Integer pageSize);
     PageInfo<Recruitment> getCreatedRecruitment(String studentId,Integer pageNum, Integer pageSize);
     int acceptUser(Integer recruitId, String applicantId);
+    int cancelAcceptUser(Integer recruitId, String applicantId);
     int addFocusedRecruitment(String studentId, Integer recruitId);
     int deleteFocusedRecruitment(String studentId, Integer recruitId);
 }

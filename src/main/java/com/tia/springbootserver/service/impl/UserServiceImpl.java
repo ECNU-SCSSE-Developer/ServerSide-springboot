@@ -6,14 +6,12 @@ import com.tia.springbootserver.entity.Recruitment;
 import com.tia.springbootserver.entity.User;
 import com.tia.springbootserver.entity.UserFocused;
 import com.tia.springbootserver.entity.UserRegistered;
-import com.tia.springbootserver.mapper.UserCreatedMapper;
 import com.tia.springbootserver.mapper.UserFocusedMapper;
 import com.tia.springbootserver.mapper.UserMapper;
 import com.tia.springbootserver.mapper.UserRegisteredMapper;
 import com.tia.springbootserver.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import java.util.List;
 
 @Service(value = "userService")
 public class UserServiceImpl implements UserService {
@@ -24,8 +22,6 @@ public class UserServiceImpl implements UserService {
     @Autowired
     private UserFocusedMapper userFocusedMapper;
 
-    @Autowired
-    private UserCreatedMapper userCreatedMapper;
 
     @Autowired
     private UserRegisteredMapper userRegisteredMapper;
@@ -43,7 +39,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public int insertUser(User user) {
-        return userMapper.insert(user);
+        return userMapper.insertSelective(user);
     }
 
     @Override
@@ -69,17 +65,23 @@ public class UserServiceImpl implements UserService {
     @Override
     public PageInfo<Recruitment> getCreatedRecruitment(String studentId, Integer pageNum, Integer pageSize) {
         PageHelper.startPage(pageNum, pageSize);
-        PageInfo<Recruitment> result = new PageInfo(userCreatedMapper.selectByUserId(studentId));
+        PageInfo<Recruitment> result = new PageInfo(userMapper.selectCreatedRecruitment(studentId));
         return result;
     }
 
     @Override
     public int acceptUser(Integer recruitId, String applicantId) {
-        //add it as a register
         userRegistered.setStudentId(applicantId);
         userRegistered.setRecruitId(recruitId);
         return userRegisteredMapper.insert(userRegistered);
     }
+
+    @Override
+    public int cancelAcceptUser(Integer recruitId, String applicantId) {
+        return userRegisteredMapper.deleteByPrimaryKey(applicantId,recruitId);
+    }
+
+
 
     @Override
     public int addFocusedRecruitment(String studentId, Integer recruitId) {

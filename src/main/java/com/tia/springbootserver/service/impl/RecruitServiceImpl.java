@@ -3,23 +3,17 @@ package com.tia.springbootserver.service.impl;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.tia.springbootserver.entity.*;
+import com.tia.springbootserver.entity.returnType.simpleMatch;
 import com.tia.springbootserver.mapper.*;
 import com.tia.springbootserver.service.RecruitService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import javax.annotation.Resource;
 
 @Service(value = "recruitService")
 public class RecruitServiceImpl implements RecruitService {
     @Autowired
     private RecruitmentMapper recruitmentMapper;
-
-    @Autowired
-    private MatchRecruitMapper matchRecruitMapper;
-
-    @Autowired
-    private UserCreatedMapper userCreatedMapper;
 
     @Autowired
     private UserFocusedMapper userFocusedMapper;
@@ -31,10 +25,16 @@ public class RecruitServiceImpl implements RecruitService {
     private RecruitApplicantsMapper recruitApplicantsMapper;
 
     @Autowired
+    private MatchMapper matchMapper;
+
+    @Autowired
     UserRegistered userRegistered;
 
     @Autowired
     UserFocused userFocused;
+
+    @Autowired
+    Recruitment recruitment;
 
     @Override
     public int createRecruitWithId(Recruitment recruitment) {
@@ -77,54 +77,50 @@ public class RecruitServiceImpl implements RecruitService {
     }
 
     @Override
-    public int bindToMatch(MatchRecruit matchRecruit) {
-        return matchRecruitMapper.insert(matchRecruit);
+    public int bindToMatch(Integer recruitId, Integer matchId, String matchName) {
+        recruitment.setRecruitId(recruitId);
+        recruitment.setMatchId(matchId);
+        recruitment.setMatchName(matchName);
+        return recruitmentMapper.updateByPrimaryKeySelective(recruitment);
     }
 
     @Override
-    public int unBindFromMatch(Integer recruitId) {
-        return matchRecruitMapper.deleteByRecruitId(recruitId);
-    }
-
-    @Override
-    public int getBindMatch(Integer recruitId) {
-        return matchRecruitMapper.selectByRecruitId(recruitId);
+    public simpleMatch getBindMatch(Integer recruitId) {
+        return recruitmentMapper.selectBindMatch(recruitId);
     }
 
     @Override
     public int deleteRecruitFromUser(Integer recruitId) {
-        recruitmentMapper.deleteFromCreated(recruitId);
         recruitmentMapper.deleteFromFocused(recruitId);
+        recruitmentMapper.deleteFromApply(recruitId);
+        recruitmentMapper.deleteFromRegistered(recruitId);
         return recruitmentMapper.deleteFromRegistered(recruitId);
     }
 
-    @Override
-    public int bindToUser(UserCreated record) {
-        return userCreatedMapper.insert(record);
-    }
 
+    // 这里的register应该是apply的意思
     @Override
     public int register(RecruitApplicants record) {
         //
         Recruitment recruitment = recruitmentMapper.selectByPrimaryKey(record.getRecruitId());
-        recruitment.setRegisteredNumber(recruitment.getRegisteredNumber() + 1);
+        recruitment.setWillingNumber(recruitment.getWillingNumber()+1);
         recruitmentMapper.updateByPrimaryKeySelective(recruitment);
         //
         userFocused.setRecruitId(record.getRecruitId());
         userFocused.setStudentId(record.getApplicantId());
-        userFocusedMapper.insert(userFocused);
-        //
-        return recruitApplicantsMapper.insert(record);
+        if (userFocusedMapper.selectUserFocused(record.getRecruitId(),record.getApplicantId())==null)
+            userFocusedMapper.insert(userFocused);
+        if(recruitApplicantsMapper.selectRecruitApplicants(record.getRecruitId(),record.getApplicantId())==null)
+            recruitApplicantsMapper.insert(record);
+        return 0;
     }
 
     @Override
     public int unregister(RecruitApplicants record) {
         //
         Recruitment recruitment = recruitmentMapper.selectByPrimaryKey(record.getRecruitId());
-        recruitment.setRegisteredNumber(recruitment.getRegisteredNumber() - 1);
+        recruitment.setWillingNumber(recruitment.getWillingNumber()-1);
         recruitmentMapper.updateByPrimaryKeySelective(recruitment);
-        //
-        userFocusedMapper.deleteByPrimaryKey(record.getApplicantId(),record.getRecruitId());
         //
         return recruitApplicantsMapper.deleteByPrimaryKey(record.getRecruitId(),record.getApplicantId());
     }
@@ -135,6 +131,7 @@ public class RecruitServiceImpl implements RecruitService {
         PageInfo<User> result = new PageInfo(recruitApplicantsMapper.selectUserByRecruitId(recruitId));
         return result;
     }
+
 
 
 }

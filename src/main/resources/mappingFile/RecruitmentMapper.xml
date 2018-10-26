@@ -9,10 +9,12 @@
     <result column="registered_number" jdbcType="INTEGER" property="registeredNumber" />
     <result column="match_id" jdbcType="INTEGER" property="matchId" />
     <result column="student_id" jdbcType="VARCHAR" property="studentId" />
+    <result column="match_name" jdbcType="VARCHAR" property="matchName" />
+    <result column="willing_number" jdbcType="INTEGER" property="willingNumber" />
   </resultMap>
   <sql id="Base_Column_List">
     recruit_id, recruit_name, recruit_description, recruit_requirements, registered_number, 
-    match_id, student_id
+    match_id, student_id, match_name, willing_number
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
@@ -27,10 +29,10 @@
   <insert id="insert" parameterType="com.tia.springbootserver.entity.Recruitment">
     insert into Recruitment (recruit_id, recruit_name, recruit_description, 
       recruit_requirements, registered_number, 
-      match_id, student_id)
+      match_id, student_id, match_name, willing_number)
     values (#{recruitId,jdbcType=INTEGER}, #{recruitName,jdbcType=VARCHAR}, #{recruitDescription,jdbcType=VARCHAR}, 
       #{recruitRequirements,jdbcType=VARCHAR}, #{registeredNumber,jdbcType=INTEGER}, 
-      #{matchId,jdbcType=INTEGER}, #{studentId,jdbcType=VARCHAR})
+      #{matchId,jdbcType=INTEGER}, #{studentId,jdbcType=VARCHAR}, #{matchName,jdbcType=VARCHAR}, #{willingNumber,jdbcType=INTEGER})
   </insert>
   <insert id="insertSelective" parameterType="com.tia.springbootserver.entity.Recruitment" keyProperty="recruitId" useGeneratedKeys="true">
     insert into Recruitment
@@ -56,6 +58,12 @@
       <if test="studentId != null">
         student_id,
       </if>
+      <if test="matchName != null">
+          match_name,
+      </if>
+      <if test="willingNumber != null">
+          willing_number,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="recruitId != null">
@@ -78,6 +86,12 @@
       </if>
       <if test="studentId != null">
         #{studentId,jdbcType=VARCHAR},
+      </if>
+      <if test="matchName != null">
+        #{matchName,jdbcType=VARCHAR},
+      </if>
+      <if test="willingNumber != null">
+        #{willingNumber,jdbcType=INTEGER},
       </if>
     </trim>
   </insert>
@@ -102,6 +116,12 @@
       <if test="studentId != null">
         student_id = #{studentId,jdbcType=VARCHAR},
       </if>
+      <if test="matchName != null">
+        match_name = #{matchName,jdbcType=VARCHAR},
+      </if>
+      <if test="willingNumber != null">
+        willing_number = #{willingNumber,jdbcType=INTEGER},
+      </if>
     </set>
     where recruit_id = #{recruitId,jdbcType=INTEGER}
   </update>
@@ -112,7 +132,9 @@
       recruit_requirements = #{recruitRequirements,jdbcType=VARCHAR},
       registered_number = #{registeredNumber,jdbcType=INTEGER},
       match_id = #{matchId,jdbcType=INTEGER},
-      student_id = #{studentId,jdbcType=VARCHAR}
+      student_id = #{studentId,jdbcType=VARCHAR},
+      match_name = #{matchName,jdbcType=VARCHAR},
+      willing_number = #{willingNumber,jdbcType=INTEGER}
     where recruit_id = #{recruitId,jdbcType=INTEGER}
   </update>
 </mapper>

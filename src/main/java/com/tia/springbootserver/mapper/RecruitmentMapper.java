@@ -1,6 +1,8 @@
 package com.tia.springbootserver.mapper;
 
+import com.tia.springbootserver.entity.Match;
 import com.tia.springbootserver.entity.Recruitment;
+import com.tia.springbootserver.entity.returnType.simpleMatch;
 import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
@@ -37,7 +39,14 @@ public interface RecruitmentMapper {
             "WHERE recruit_id = #{recruitId}")
     int deleteFromRegistered(Integer recruitId);
 
-    @Delete("DELETE FROM `User_Created`\n" +
+    @Delete("DELETE FROM `Recruit_Applicants`\n" +
             "WHERE recruit_id = #{recruitId}")
-    int deleteFromCreated(Integer recruitId);
+    int deleteFromApply(Integer recruitId);
+
+
+    @Select("SELECT match_id,match_name FROM Recruitment\n" +
+            "WHERE recruit_id = #{recruitId}\n")
+    simpleMatch selectBindMatch(Integer recruitId);
+
+
 }

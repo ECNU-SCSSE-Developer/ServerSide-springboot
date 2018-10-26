@@ -2,33 +2,37 @@ package com.tia.springbootserver.controller;
 
 
 import com.tia.springbootserver.entity.User;
+import com.tia.springbootserver.mapper.UserFocusedMapper;
 import com.tia.springbootserver.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
+@RequestMapping(value = "/user",produces = {"application/json;charset=UTF-8"})
 public class UserController {
 
     @Autowired
     private UserService userService;
+    @Autowired
+    private UserFocusedMapper userFocusedMapper;
 
 
-    @GetMapping(value = "/user", produces = {"application/json;charset=UTF-8"})
+    @GetMapping(produces = {"application/json;charset=UTF-8"})
     public Object getUserById(String studentId)
     {
         return userService.getById(studentId);
     }
 
-    @PostMapping(value = "/user", produces = {"application/json;charset=UTF-8"})
+    @PostMapping(produces = {"application/json;charset=UTF-8"})
     public Object createUser(User user)
     {
         return userService.insertUser(user);
     }
 
-    @PutMapping(value = "/user", produces = {"application/json;charset=UTF-8"})
+    @PutMapping(produces = {"application/json;charset=UTF-8"})
     public Object updateUserInfo(User user){return userService.updateUserInfo(user);}
 
-    @GetMapping(value = "/user/focused", produces = {"application/json;charset=UTF-8"})
+    @GetMapping(value = "/focused", produces = {"application/json;charset=UTF-8"})
     public Object getFocusedRecruitment(String studentId,
                                         @RequestParam(name = "pageNum", required = false, defaultValue = "1")
                                                 Integer pageNum,
@@ -37,18 +41,20 @@ public class UserController {
         return userService.getFocusedRecruitment(studentId,pageNum,pageSize);
     }
 
-    @PostMapping(value = "/user/focused", produces = {"application/json;charset=UTF-8"})
+    @PutMapping(value = "/focused", produces = {"application/json;charset=UTF-8"})
     public Object addFocusedRecruitment(String studentId, Integer recruitId){
-        return userService.addFocusedRecruitment(studentId, recruitId);
+        if(userFocusedMapper.selectUserFocused(recruitId,studentId)==null)
+            return userService.addFocusedRecruitment(studentId, recruitId);
+        return 0;
     };
 
-    @DeleteMapping(value = "/user/focused", produces = {"application/json;charset=UTF-8"})
+    @DeleteMapping(value = "/focused", produces = {"application/json;charset=UTF-8"})
     public Object deleteFocusedRecruitment(String studentId, Integer recruitId){
         return userService.deleteFocusedRecruitment(studentId, recruitId);
     };
 
 
-    @GetMapping(value = "/user/registered", produces = {"application/json;charset=UTF-8"})
+    @GetMapping(value = "/registered", produces = {"application/json;charset=UTF-8"})
     public Object getRegisteredRecruitment(String studentId,
                                            @RequestParam(name = "pageNum", required = false, defaultValue = "1")
                                                    Integer pageNum,
@@ -57,7 +63,7 @@ public class UserController {
         return userService.getRegisteredRecruitment(studentId,pageNum,pageSize);
     }
 
-    @GetMapping(value = "/user/created", produces = {"application/json;charset=UTF-8"})
+    @GetMapping(value = "/created", produces = {"application/json;charset=UTF-8"})
     public Object getCreatedRecruitment(String studentId,
                                         @RequestParam(name = "pageNum", required = false, defaultValue = "1")
                                                 Integer pageNum,
@@ -66,9 +72,6 @@ public class UserController {
         return userService.getCreatedRecruitment(studentId,pageNum,pageSize);
     }
 
-    @PutMapping(value = "/user/accept", produces = {"application/json;charset=UTF-8"})
-    public Object acceptUser(Integer recruitId, @RequestParam(name = "studentId") String applicantId){
-        return userService.acceptUser(recruitId,applicantId);
-    }
+
 }
 
