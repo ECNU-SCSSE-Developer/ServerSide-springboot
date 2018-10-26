@@ -43,8 +43,8 @@ public class LoginServiceImpl implements LoginService {
         StringBuffer sb = new StringBuffer();
         sb.append(wxSessionKey).append("#").append(wxOpenId);
 
-        //缓存到Redis
-        stringRedisTemplate.opsForValue().set(thirdSessionKey, sb.toString(), 600, TimeUnit.SECONDS);
+        //缓存到Redis,存放时间应比微信小程序登录态维持时间久
+        stringRedisTemplate.opsForValue().set(thirdSessionKey, sb.toString(), 100, TimeUnit.DAYS);
         return thirdSessionKey;
     }
 
