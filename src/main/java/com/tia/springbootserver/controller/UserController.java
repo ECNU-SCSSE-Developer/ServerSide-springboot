@@ -37,8 +37,13 @@ public class UserController {
                                         @RequestParam(name = "pageNum", required = false, defaultValue = "1")
                                                 Integer pageNum,
                                         @RequestParam(name = "pageSize", required = false, defaultValue = "10")
-                                                    Integer pageSize){
-        return userService.getFocusedRecruitment(studentId,pageNum,pageSize);
+                                                    Integer pageSize,
+                                        @RequestParam(name = "onPage", required = false, defaultValue = "-1")
+                                                    Integer onPage){
+        if (onPage!=-1)
+            return userService.getFocusedRecruitment(studentId,pageNum,pageSize);
+        else
+            return userService.getFocusedRecruitmentNotOnPage(studentId);
     }
 
     @PutMapping(value = "/focused", produces = {"application/json;charset=UTF-8"})
@@ -46,12 +51,12 @@ public class UserController {
         if(userFocusedMapper.selectUserFocused(recruitId,studentId)==null)
             return userService.addFocusedRecruitment(studentId, recruitId);
         return 0;
-    };
+    }
 
     @DeleteMapping(value = "/focused", produces = {"application/json;charset=UTF-8"})
     public Object deleteFocusedRecruitment(String studentId, Integer recruitId){
         return userService.deleteFocusedRecruitment(studentId, recruitId);
-    };
+    }
 
 
     @GetMapping(value = "/registered", produces = {"application/json;charset=UTF-8"})
@@ -59,8 +64,13 @@ public class UserController {
                                            @RequestParam(name = "pageNum", required = false, defaultValue = "1")
                                                    Integer pageNum,
                                            @RequestParam(name = "pageSize", required = false, defaultValue = "10")
-                                                       Integer pageSize){
-        return userService.getRegisteredRecruitment(studentId,pageNum,pageSize);
+                                                       Integer pageSize,
+                                           @RequestParam(name = "onPage", required = false, defaultValue = "-1")
+                                                       Integer onPage){
+        if(onPage!=-1)
+            return userService.getRegisteredRecruitment(studentId,pageNum,pageSize);
+        else
+            return userService.getRegisteredRecruitmentNotOnPage(studentId);
     }
 
     @GetMapping(value = "/created", produces = {"application/json;charset=UTF-8"})
@@ -68,8 +78,13 @@ public class UserController {
                                         @RequestParam(name = "pageNum", required = false, defaultValue = "1")
                                                 Integer pageNum,
                                         @RequestParam(name = "pageSize", required = false, defaultValue = "10")
-                                                    Integer pageSize){
-        return userService.getCreatedRecruitment(studentId,pageNum,pageSize);
+                                                    Integer pageSize,
+                                        @RequestParam(name = "onPage", required = false, defaultValue = "-1")
+                                                    Integer onPage){
+        if(onPage!=-1)
+            return userService.getCreatedRecruitment(studentId,pageNum,pageSize);
+        else
+            return userService.getCreatedRecruitmentNotOnPage(studentId);
     }
 
 

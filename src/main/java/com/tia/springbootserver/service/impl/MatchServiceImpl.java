@@ -24,6 +24,12 @@ public class MatchServiceImpl implements MatchService {
     }
 
     @Override
+    public List<Match> findAllMatchNotOnPage() {
+        List<Match> matchList = matchMapper.selectAll();
+        return matchList;
+    }
+
+    @Override
     public Match getMatchById(Integer matchId){
         return matchMapper.selectByPrimaryKey(matchId);
     }
@@ -34,4 +40,11 @@ public class MatchServiceImpl implements MatchService {
         List<Match> matchList = matchMapper.selectByName(matchName);
         return new PageInfo(matchList);
     }
+
+    @Override
+    public List<Match> findMatchByNameNotOnPage(String matchName) {
+        return matchMapper.selectByName(matchName);
+    }
+
+
 }

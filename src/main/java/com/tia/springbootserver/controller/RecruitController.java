@@ -52,13 +52,22 @@ public class RecruitController {
         Integer pageSize = pageSizeString!=null ? Integer.parseInt(pageSizeString) : 10 ;
         //
         String selectAllString = request.getParameter("selectAll");
+        String onPageString = request.getParameter("onPage");
         //
-        if(selectAllString!=null)
-            return recruitService.findAllRecruit(pageNum,pageSize);
+        if(selectAllString!=null) {
+            if (onPageString!=null)
+                return recruitService.findAllRecruit(pageNum, pageSize);
+            else
+                return recruitService.findAllRecruitNotOnPage();
+        }
         else if (recruitIdString!=null)
             return recruitService.findRecruitById(Integer.parseInt(recruitIdString));
-        else if(recruitNameString!=null)
-            return recruitService.findRecruitByName(recruitNameString,pageNum,pageSize);
+        else if(recruitNameString!=null) {
+            if (onPageString!=null)
+                return recruitService.findRecruitByName(recruitNameString, pageNum, pageSize);
+            else
+                return recruitService.findRecruitByNameNotOnPage(recruitNameString);
+        }
         else
             return recruitService.findRecruitById(-1);
     }
@@ -119,8 +128,13 @@ public class RecruitController {
                                     @RequestParam(name = "pageNum", required = false, defaultValue = "1")
                                             Integer pageNum,
                                     @RequestParam(name = "pageSize", required = false, defaultValue = "10")
-                                                Integer pageSize){
-        return recruitService.getApplicantsInfo(recruitId,pageNum,pageSize);
+                                                Integer pageSize,
+                                    @RequestParam(name = "onPage", required = false, defaultValue = "-1")
+                                    Integer onPage){
+        if (onPage!=-1)
+            return recruitService.getApplicantsInfo(recruitId,pageNum,pageSize);
+        else
+            return recruitService.getApplicantsInfoNotOnPage(recruitId);
     }
 
     //通过申请

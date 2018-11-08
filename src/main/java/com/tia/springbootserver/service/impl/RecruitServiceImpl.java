@@ -9,6 +9,8 @@ import com.tia.springbootserver.service.RecruitService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 
 @Service(value = "recruitService")
 public class RecruitServiceImpl implements RecruitService {
@@ -64,10 +66,20 @@ public class RecruitServiceImpl implements RecruitService {
     }
 
     @Override
+    public List<Recruitment> findRecruitByNameNotOnPage(String recruitName) {
+        return recruitmentMapper.selectByName(recruitName);
+    }
+
+    @Override
     public PageInfo<Recruitment> findAllRecruit(Integer pageNum, Integer pageSize) {
         PageHelper.startPage(pageNum, pageSize);
         PageInfo<Recruitment> result = new PageInfo(recruitmentMapper.selectAll());
         return result;
+    }
+
+    @Override
+    public List<Recruitment> findAllRecruitNotOnPage() {
+        return recruitmentMapper.selectAll();
     }
 
 
@@ -132,6 +144,10 @@ public class RecruitServiceImpl implements RecruitService {
         return result;
     }
 
+    @Override
+    public List<User> getApplicantsInfoNotOnPage(Integer recruitId) {
+        return recruitApplicantsMapper.selectUserByRecruitId(recruitId);
+    }
 
 
 }

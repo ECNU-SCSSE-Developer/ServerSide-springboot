@@ -13,6 +13,8 @@ import com.tia.springbootserver.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service(value = "userService")
 public class UserServiceImpl implements UserService {
 
@@ -56,6 +58,11 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public List<Recruitment> getFocusedRecruitmentNotOnPage(String studentId) {
+        return userFocusedMapper.selectByUserId(studentId);
+    }
+
+    @Override
     public PageInfo<Recruitment> getRegisteredRecruitment(String studentId, Integer pageNum, Integer pageSize) {
         PageHelper.startPage(pageNum, pageSize);
         PageInfo<Recruitment> result = new PageInfo(userRegisteredMapper.selectByUserId(studentId));
@@ -63,10 +70,20 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public List<Recruitment> getRegisteredRecruitmentNotOnPage(String studentId) {
+        return userRegisteredMapper.selectByUserId(studentId);
+    }
+
+    @Override
     public PageInfo<Recruitment> getCreatedRecruitment(String studentId, Integer pageNum, Integer pageSize) {
         PageHelper.startPage(pageNum, pageSize);
         PageInfo<Recruitment> result = new PageInfo(userMapper.selectCreatedRecruitment(studentId));
         return result;
+    }
+
+    @Override
+    public List<Recruitment> getCreatedRecruitmentNotOnPage(String studentId) {
+        return userMapper.selectCreatedRecruitment(studentId);
     }
 
     @Override

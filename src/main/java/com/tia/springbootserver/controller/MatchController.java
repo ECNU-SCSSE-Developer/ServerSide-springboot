@@ -28,15 +28,25 @@ public class MatchController {
         //
         String selectAllString = request.getParameter("selectAll");
         //
-        String matchIdString = request.getParameter("recruitId");
-        String matchNameString = request.getParameter("recruitName");
+        String matchIdString = request.getParameter("matchId");
+        String matchNameString = request.getParameter("matchName");
+        // is on Page
+        String onPageString = request.getParameter("onPage");
         //
-        if(selectAllString!=null)
-            return matchService.findAllMatch(pageNum,pageSize);
+        if(selectAllString!=null) {
+            if (onPageString!=null)
+                return matchService.findAllMatch(pageNum, pageSize);
+            else
+                return matchService.findAllMatchNotOnPage();
+        }
         else if(matchIdString!=null)
             return matchService.getMatchById(Integer.parseInt(matchIdString));
-        else if(matchNameString!=null)
-            return matchService.findMatchByName(matchNameString,pageNum,pageSize);
+        else if(matchNameString!=null) {
+            if (onPageString!=null)
+                return matchService.findMatchByName(matchNameString, pageNum, pageSize);
+            else
+                return matchService.findMatchByNameNotOnPage(matchNameString);
+        }
         else
             return matchService.getMatchById(-1);
     }
