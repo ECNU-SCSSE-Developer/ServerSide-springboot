@@ -15,7 +15,10 @@ public interface UserMapper {
 
     int insertSelective(User record);
 
-    User selectByPrimaryKey(String studentId);
+    User selectByPrimaryKey(String openId);
+
+    @Select("select * from `User` where student_id = #{studentId}")
+    User selectByStudentId(String studentId);
 
     int updateByPrimaryKeySelective(User record);
 

@@ -2,34 +2,34 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.tia.springbootserver.mapper.UserMapper">
   <resultMap id="BaseResultMap" type="com.tia.springbootserver.entity.User">
-    <id column="student_id" jdbcType="VARCHAR" property="studentId" />
+    <id column="open_id" jdbcType="VARCHAR" property="openId" />
+    <result column="student_id" jdbcType="VARCHAR" property="studentId" />
     <result column="student_name" jdbcType="VARCHAR" property="studentName" />
     <result column="grade" jdbcType="INTEGER" property="grade" />
     <result column="major" jdbcType="VARCHAR" property="major" />
     <result column="specialty" jdbcType="VARCHAR" property="specialty" />
     <result column="contacts" jdbcType="VARCHAR" property="contacts" />
-    <result column="openid" jdbcType="VARCHAR" property="openid" />
   </resultMap>
   <sql id="Base_Column_List">
-    student_id, student_name, grade, major, specialty, contacts, openid
+    student_id, student_name, grade, major, specialty, contacts, open_id
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
     from User
-    where student_id = #{studentId,jdbcType=VARCHAR}
+    where open_id = #{openId,jdbcType=VARCHAR}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
     delete from User
-    where student_id = #{studentId,jdbcType=VARCHAR}
+    where open_id = #{openId,jdbcType=VARCHAR}
   </delete>
   <insert id="insert" parameterType="com.tia.springbootserver.entity.User">
     insert into User (student_id, student_name, grade, 
       major, specialty, contacts, 
-      openid)
+      open_id)
     values (#{studentId,jdbcType=VARCHAR}, #{studentName,jdbcType=VARCHAR}, #{grade,jdbcType=INTEGER}, 
       #{major,jdbcType=VARCHAR}, #{specialty,jdbcType=VARCHAR}, #{contacts,jdbcType=VARCHAR}, 
-      #{openid,jdbcType=VARCHAR})
+      #{openId,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.tia.springbootserver.entity.User">
     insert into User
@@ -52,8 +52,8 @@
       <if test="contacts != null">
         contacts,
       </if>
-      <if test="openid != null">
-        openid,
+      <if test="openId != null">
+        open_id,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
@@ -75,8 +75,8 @@
       <if test="contacts != null">
         #{contacts,jdbcType=VARCHAR},
       </if>
-      <if test="openid != null">
-        #{openid,jdbcType=VARCHAR},
+      <if test="openId != null">
+        #{openId,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -98,11 +98,11 @@
       <if test="contacts != null">
         contacts = #{contacts,jdbcType=VARCHAR},
       </if>
-      <if test="openid != null">
-        openid = #{openid,jdbcType=VARCHAR},
+      <if test="openId != null">
+        open_id = #{openId,jdbcType=VARCHAR},
       </if>
     </set>
-    where student_id = #{studentId,jdbcType=VARCHAR}
+    where open_id = #{openId,jdbcType=VARCHAR}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.tia.springbootserver.entity.User">
     update User
@@ -111,7 +111,7 @@
       major = #{major,jdbcType=VARCHAR},
       specialty = #{specialty,jdbcType=VARCHAR},
       contacts = #{contacts,jdbcType=VARCHAR},
-      openid = #{openid,jdbcType=VARCHAR}
-    where student_id = #{studentId,jdbcType=VARCHAR}
+      open_id = #{openId,jdbcType=VARCHAR}
+    where open_id = #{openId,jdbcType=VARCHAR}
   </update>
 </mapper>

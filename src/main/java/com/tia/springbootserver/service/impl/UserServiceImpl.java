@@ -41,16 +41,26 @@ public class UserServiceImpl implements UserService {
     private UserFocused userFocused;
 
     @Override
-    public User getById(String studentId) {
-        return userMapper.selectByPrimaryKey(studentId);
+    public User getByOpenId(String openId) {
+        return userMapper.selectByPrimaryKey(openId);
+    }
+
+    @Override
+    public User getByStudentId(String studentId) {
+        return userMapper.selectByStudentId(studentId);
     }
 
     @Override
     public UserWithSplitContacts getByIdWithSplitContacts(String studentId) {
-        UserWithSplitContacts temp = new UserWithSplitContacts(userMapper.selectByPrimaryKey(studentId));
+        UserWithSplitContacts temp = new UserWithSplitContacts(userMapper.selectByStudentId(studentId));
         String[] contactsTemp = temp.getContacts().split(";");
-        temp.setQq(contactsTemp[0]);
-        temp.setEmail(contactsTemp[1]);
+        try {
+            temp.setQq(contactsTemp[0]);
+            temp.setEmail(contactsTemp[1]);
+        }
+        catch (java.lang.ArrayIndexOutOfBoundsException e){
+
+        }
         return temp;
     }
 

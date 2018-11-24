@@ -13,7 +13,7 @@ public class User {
 
     private String contacts;
 
-    private String openid;
+    private String openId;
 
     public String getStudentId() {
         return studentId;
@@ -63,28 +63,25 @@ public class User {
         this.contacts = contacts == null ? null : contacts.trim();
     }
 
-    public String getOpenid() {
-        return openid;
+    public String getOpenId() {
+        return openId;
     }
 
-    public void setOpenid(String openid) {
-        this.openid = openid == null ? null : openid.trim();
+    public void setOpenId(String openId) {
+        this.openId = openId;
     }
+
 
     @Override
     public String toString() {
-        StringBuilder sb = new StringBuilder();
-        sb.append(getClass().getSimpleName());
-        sb.append(" [");
-        sb.append("Hash = ").append(hashCode());
-        sb.append(", studentId=").append(studentId);
-        sb.append(", studentName=").append(studentName);
-        sb.append(", grade=").append(grade);
-        sb.append(", major=").append(major);
-        sb.append(", specialty=").append(specialty);
-        sb.append(", contacts=").append(contacts);
-        sb.append(", openid=").append(openid);
-        sb.append("]");
-        return sb.toString();
+        return "User{" +
+                "studentId='" + studentId + '\'' +
+                ", studentName='" + studentName + '\'' +
+                ", grade=" + grade +
+                ", major='" + major + '\'' +
+                ", specialty='" + specialty + '\'' +
+                ", contacts='" + contacts + '\'' +
+                ", openId='" + openId + '\'' +
+                '}';
     }
 }

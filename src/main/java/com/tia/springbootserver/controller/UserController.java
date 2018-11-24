@@ -18,12 +18,19 @@ public class UserController {
 
 
     @GetMapping(produces = {"application/json;charset=UTF-8"})
-    public Object getUserByIdWithSplitContacts(String studentId,@RequestParam(value = "isSplit",defaultValue = "1") Integer isSplit){
+    public Object getUserByIdWithSplitContacts(@RequestParam(value = "studentId") String studentId,@RequestParam(value = "isSplit",defaultValue = "1") Integer isSplit){
         if (isSplit==1)
             return userService.getByIdWithSplitContacts(studentId);
         else
-            return userService.getById(studentId);
+            return userService.getByStudentId(studentId);
     }
+
+    @GetMapping(value = "/oid", produces = {"application/json;charset=UTF-8"})
+    public Object getUserByOpenId(String openId){
+        return userService.getByOpenId(openId);
+    }
+
+
 
 
     @PostMapping(produces = {"application/json;charset=UTF-8"})

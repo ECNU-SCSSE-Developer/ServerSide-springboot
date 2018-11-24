@@ -9,7 +9,9 @@ import java.util.List;
 
 public interface UserService {
 
-    User getById(String studentId);
+    User getByOpenId(String openId);
+
+    User getByStudentId(String studentId);
     UserWithSplitContacts getByIdWithSplitContacts(String studentId);
     int insertUser(User user);
     int updateUserInfo(User user);

@@ -20,7 +20,7 @@ public class UserWithSplitContacts extends User {
         this.setContacts(user.getContacts());
         this.setGrade(user.getGrade());
         this.setMajor(user.getMajor());
-        this.setOpenid(user.getOpenid());
+        this.setOpenId(user.getOpenId());
         this.setStudentId(user.getStudentId());
         this.setStudentName(user.getStudentName());
         this.setSpecialty(user.getSpecialty());
