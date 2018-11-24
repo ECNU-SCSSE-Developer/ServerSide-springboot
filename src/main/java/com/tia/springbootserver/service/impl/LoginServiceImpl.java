@@ -2,6 +2,8 @@ package com.tia.springbootserver.service.impl;
 
 import com.alibaba.fastjson.JSONObject;
 import com.tia.springbootserver.entity.SessionId;
+import com.tia.springbootserver.entity.User;
+import com.tia.springbootserver.mapper.UserMapper;
 import com.tia.springbootserver.service.LoginService;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.slf4j.Logger;
@@ -31,6 +33,10 @@ public class LoginServiceImpl implements LoginService {
 
     @Autowired
     private StringRedisTemplate stringRedisTemplate;
+
+    @Autowired
+    UserMapper userMapper;
+
     /**
      * 生成自定义第三方session,并存入redis中
      * @param wxOpenId
@@ -91,6 +97,9 @@ public class LoginServiceImpl implements LoginService {
             JSONObject jsonObject = JSONObject.parseObject(res.getBody());
             String sessionKey = jsonObject.getString("session_key");
             String openid = jsonObject.getString("openid");
+            User user = new User();
+            user.setOpenid(openid);
+            userMapper.insertSelective(user);
             String sId = create3rdSession(openid, sessionKey);
             SessionId sessionId = new SessionId();
             sessionId.setSessionid(sId);
