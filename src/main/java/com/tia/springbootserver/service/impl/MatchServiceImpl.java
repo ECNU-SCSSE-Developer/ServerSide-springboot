@@ -16,6 +16,8 @@ public class MatchServiceImpl implements MatchService {
     @Autowired
     private MatchMapper matchMapper;
 
+
+
     @Override
     public PageInfo<Match> findAllMatch(Integer pageNum, Integer pageSize) {
         PageHelper.startPage(pageNum, pageSize);
@@ -31,8 +33,10 @@ public class MatchServiceImpl implements MatchService {
 
     @Override
     public Match getMatchById(Integer matchId){
-        return matchMapper.selectByPrimaryKey(matchId);
+        Match match = matchMapper.selectByPrimaryKey(matchId);
+        return match;
     }
+
 
     @Override
     public PageInfo<Match> findMatchByName(String matchName,Integer pageNum, Integer pageSize){
@@ -43,8 +47,10 @@ public class MatchServiceImpl implements MatchService {
 
     @Override
     public List<Match> findMatchByNameNotOnPage(String matchName) {
-        return matchMapper.selectByName(matchName);
+        List<Match> matchList =  matchMapper.selectByName(matchName);
+        return matchList;
     }
+
 
 
 }

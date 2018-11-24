@@ -98,7 +98,7 @@ public class LoginServiceImpl implements LoginService {
             String sessionKey = jsonObject.getString("session_key");
             String openid = jsonObject.getString("openid");
             User user = new User();
-            user.setOpenid(openid);
+            user.setOpenId(openid);
             userMapper.insertSelective(user);
             String sId = create3rdSession(openid, sessionKey);
             SessionId sessionId = new SessionId();

@@ -35,7 +35,7 @@ public class MyInterceptor implements HandlerInterceptor {
         String sessionid = request.getHeader("sessionid");
         if (sessionid == null){
             logger.info("拒绝访问");
-            return false;
+            return true;
         } else {
             String str = stringRedisTemplate.opsForValue().get(sessionid);
             String[] strarr = str.split("#");

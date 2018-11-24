@@ -3,6 +3,8 @@ package com.tia.springbootserver.service;
 import com.github.pagehelper.PageInfo;
 import com.tia.springbootserver.entity.Match;
 
+import java.awt.image.BufferedImage;
+import java.io.IOException;
 import java.util.List;
 
 public interface MatchService {
@@ -16,5 +18,6 @@ public interface MatchService {
     List<Match> findMatchByNameNotOnPage(String matchName);
 
     Match getMatchById(Integer matchId);
+
 
 }

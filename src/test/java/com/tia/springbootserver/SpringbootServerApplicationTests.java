@@ -1,24 +1,14 @@
 package com.tia.springbootserver;
 
-import com.tia.springbootserver.service.ImageService;
-import com.tia.springbootserver.service.MatchService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import javax.imageio.ImageIO;
-import java.awt.image.BufferedImage;
-import java.io.ByteArrayInputStream;
-import java.io.IOException;
-
 @RunWith(SpringRunner.class)
 @SpringBootTest
 public class SpringbootServerApplicationTests {
-
-    @Autowired
-    ImageService imageService;
 
 
     @Test
