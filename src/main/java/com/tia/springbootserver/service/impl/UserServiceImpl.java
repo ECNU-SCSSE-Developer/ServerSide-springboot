@@ -6,6 +6,8 @@ import com.tia.springbootserver.entity.Recruitment;
 import com.tia.springbootserver.entity.User;
 import com.tia.springbootserver.entity.UserFocused;
 import com.tia.springbootserver.entity.UserRegistered;
+import com.tia.springbootserver.entity.returnType.UserWithSplitContacts;
+import com.tia.springbootserver.mapper.RecruitApplicantsMapper;
 import com.tia.springbootserver.mapper.UserFocusedMapper;
 import com.tia.springbootserver.mapper.UserMapper;
 import com.tia.springbootserver.mapper.UserRegisteredMapper;
@@ -29,6 +31,10 @@ public class UserServiceImpl implements UserService {
     private UserRegisteredMapper userRegisteredMapper;
 
     @Autowired
+    private RecruitApplicantsMapper recruitApplicantsMapper;
+
+
+    @Autowired
     private UserRegistered userRegistered;
 
     @Autowired
@@ -37,6 +43,15 @@ public class UserServiceImpl implements UserService {
     @Override
     public User getById(String studentId) {
         return userMapper.selectByPrimaryKey(studentId);
+    }
+
+    @Override
+    public UserWithSplitContacts getByIdWithSplitContacts(String studentId) {
+        UserWithSplitContacts temp = new UserWithSplitContacts(userMapper.selectByPrimaryKey(studentId));
+        String[] contactsTemp = temp.getContacts().split(";");
+        temp.setQq(contactsTemp[0]);
+        temp.setEmail(contactsTemp[1]);
+        return temp;
     }
 
     @Override
@@ -84,6 +99,11 @@ public class UserServiceImpl implements UserService {
     @Override
     public List<Recruitment> getCreatedRecruitmentNotOnPage(String studentId) {
         return userMapper.selectCreatedRecruitment(studentId);
+    }
+
+    @Override
+    public List<Recruitment> getAppliedRecruitmentNotOnPage(String studentId) {
+        return recruitApplicantsMapper.selectRecruitByStudentId(studentId);
     }
 
     @Override

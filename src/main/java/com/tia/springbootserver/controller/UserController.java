@@ -18,10 +18,13 @@ public class UserController {
 
 
     @GetMapping(produces = {"application/json;charset=UTF-8"})
-    public Object getUserById(String studentId)
-    {
-        return userService.getById(studentId);
+    public Object getUserByIdWithSplitContacts(String studentId,@RequestParam(value = "isSplit",defaultValue = "1") Integer isSplit){
+        if (isSplit==1)
+            return userService.getByIdWithSplitContacts(studentId);
+        else
+            return userService.getById(studentId);
     }
+
 
     @PostMapping(produces = {"application/json;charset=UTF-8"})
     public Object createUser(User user)
@@ -56,6 +59,11 @@ public class UserController {
     @DeleteMapping(value = "/focused", produces = {"application/json;charset=UTF-8"})
     public Object deleteFocusedRecruitment(String studentId, Integer recruitId){
         return userService.deleteFocusedRecruitment(studentId, recruitId);
+    }
+
+    @GetMapping(value = "/applied", produces = {"application/json;charset=UTF-8"})
+    public Object getAppliedRecruitment(String studentId){
+        return userService.getAppliedRecruitmentNotOnPage(studentId);
     }
 
 

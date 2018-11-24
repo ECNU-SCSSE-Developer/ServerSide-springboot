@@ -1,6 +1,7 @@
 package com.tia.springbootserver.mapper;
 
 import com.tia.springbootserver.entity.RecruitApplicants;
+import com.tia.springbootserver.entity.Recruitment;
 import com.tia.springbootserver.entity.User;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
@@ -24,4 +25,11 @@ public interface RecruitApplicantsMapper {
     @Select("SELECT * FROM `Recruit_Applicants`\n" +
             "WHERE recruit_id=#{recruitId} and applicant_id=#{applicantId}")
     RecruitApplicants selectRecruitApplicants(@Param("recruitId") Integer recruitId, @Param("applicantId") String applicantId);
+
+    @Select("SELECT * FROM `Recruitment`\n" +
+            "WHERE recruit_id IN\n" +
+            "(SELECT recruit_id FROM `Recruit_Applicants` \n" +
+            "WHERE applicant_id = #{studentId})\n" +
+            "\n")
+    List<Recruitment> selectRecruitByStudentId(String studentId);
 }

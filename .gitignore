@@ -8,3 +8,5 @@
 springboot-server.iml
 .idea/.name
 springboot-server.iml
+.idea/*
+.mvn/*

@@ -32,9 +32,6 @@ public class MyInterceptor implements HandlerInterceptor {
      */
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
-        logger.info("拦截到请求");
-        logger.info(request.getHeader("sessionid"));
-
         String sessionid = request.getHeader("sessionid");
         if (sessionid == null){
             logger.info("拒绝访问");
