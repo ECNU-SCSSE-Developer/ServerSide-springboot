@@ -19,5 +19,8 @@ public interface MatchService {
 
     Match getMatchById(Integer matchId);
 
+    List<Match> findMatchByType(String type);
+
+
 
 }

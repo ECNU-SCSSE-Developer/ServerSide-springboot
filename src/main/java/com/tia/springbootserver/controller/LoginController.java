@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.RestController;
  * @date 2018/10/18 18:37
  */
 
-@Controller
 @RestController
 public class LoginController {
 
@@ -24,13 +23,13 @@ public class LoginController {
     /**
      * @param code
      */
-    @GetMapping(value = "/onLogin")
+    @GetMapping(value = "/tia/onLogin")
     public SessionId onLogin(@RequestParam(name = "code") String code) {
         SessionId sessionid = loginService.getWxSession(code);
         return sessionid;
     }
 
-    @GetMapping(value = "/test")
+    @GetMapping(value = "/tia/test")
     public String test(@RequestAttribute(name = "openid") String openid) {
         return openid;
     }

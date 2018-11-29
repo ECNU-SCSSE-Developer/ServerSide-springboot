@@ -9,13 +9,18 @@ import com.tia.springbootserver.service.RecruitService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 
 @Service(value = "recruitService")
 public class RecruitServiceImpl implements RecruitService {
     @Autowired
     private RecruitmentMapper recruitmentMapper;
+    @Autowired
+    private  RecruitTypeMapper recruitTypeMapper;
 
     @Autowired
     private UserFocusedMapper userFocusedMapper;
@@ -147,6 +152,47 @@ public class RecruitServiceImpl implements RecruitService {
     @Override
     public List<User> getApplicantsInfoNotOnPage(Integer recruitId) {
         return recruitApplicantsMapper.selectUserByRecruitId(recruitId);
+    }
+
+    @Override
+    public List<Recruitment> findRecruitByType(String type) {
+//        List<RecruitType> selectedRecruit = new ArrayList<>();
+        List<Recruitment> result = new ArrayList<>();
+        Set<Integer> selectedRecruitId = new HashSet<>();
+        String[] temp = type.split(";");
+        if (temp!=null){
+            for (String each : temp){
+                for(RecruitType tempResult:recruitTypeMapper.findRecruitByType(each)){
+                    selectedRecruitId.add(tempResult.getRecruitId());
+                }
+            }
+        }
+        else{
+            for(RecruitType tempResult:recruitTypeMapper.findRecruitByType(type)){
+                selectedRecruitId.add(tempResult.getRecruitId());
+            }
+        }
+        for (Integer recruitId : selectedRecruitId){
+            result.add(recruitmentMapper.selectByPrimaryKey(recruitId));
+        }
+        return result;
+    }
+
+    @Override
+    public int addTypeForRecruit(RecruitType record) {
+        return recruitTypeMapper.insert(record);
+
+
+    }
+
+//    @Override
+//    public int deleteTypeForRecruit(Integer recruitId, String type) {
+//        return recruitTypeMapper.deleteByRecord(recruitId,type);
+//    }
+
+    @Override
+    public int deleteTypeForRecruit(RecruitType record) {
+        return recruitTypeMapper.deleteByRecord(record);
     }
 
 

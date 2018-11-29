@@ -1,6 +1,7 @@
 package com.tia.springbootserver.controller;
 
 
+import com.tia.springbootserver.entity.MatchType;
 import com.tia.springbootserver.service.MatchService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -9,6 +10,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.ArrayList;
+import java.util.List;
 
 @RestController
 public class MatchController {
@@ -17,7 +20,13 @@ public class MatchController {
     private MatchService matchService;
 
 
-    @GetMapping(value = "/match",produces = {"application/json;charset=UTF-8"})
+    @GetMapping(value = "/tia/typedMatch",produces = {"application/json;charset=UTF-8"})
+    public Object getMatchByTyped(String type)
+    {
+        return matchService.findMatchByType(type);
+    }
+
+    @GetMapping(value = "/tia/match",produces = {"application/json;charset=UTF-8"})
     public Object getMatch(HttpServletRequest request)
     {
         //

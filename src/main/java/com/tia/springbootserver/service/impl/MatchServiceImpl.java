@@ -3,11 +3,14 @@ package com.tia.springbootserver.service.impl;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.tia.springbootserver.entity.Match;
+import com.tia.springbootserver.entity.MatchType;
 import com.tia.springbootserver.mapper.MatchMapper;
+import com.tia.springbootserver.mapper.MatchTypeMapper;
 import com.tia.springbootserver.service.MatchService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service(value = "matchService")
@@ -16,6 +19,8 @@ public class MatchServiceImpl implements MatchService {
     @Autowired
     private MatchMapper matchMapper;
 
+    @Autowired
+    private MatchTypeMapper matchTypeMapper;
 
 
     @Override
@@ -35,6 +40,22 @@ public class MatchServiceImpl implements MatchService {
     public Match getMatchById(Integer matchId){
         Match match = matchMapper.selectByPrimaryKey(matchId);
         return match;
+    }
+
+    @Override
+    public List<Match> findMatchByType(String type) {
+
+        String[] typeList = type.split(";");
+        List<MatchType> selectedType = new ArrayList<>();
+        List<Match> result = new ArrayList<>();
+        for (String each : typeList){
+            selectedType.addAll(matchTypeMapper.selectByType(each));
+        }
+        for (MatchType eachMatch : selectedType){
+            result.add(matchMapper.selectByPrimaryKey(eachMatch.getMatchId()));
+        }
+        return result;
+
     }
 
 

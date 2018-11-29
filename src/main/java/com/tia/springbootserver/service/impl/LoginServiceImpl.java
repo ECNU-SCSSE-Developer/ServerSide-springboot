@@ -97,9 +97,16 @@ public class LoginServiceImpl implements LoginService {
             JSONObject jsonObject = JSONObject.parseObject(res.getBody());
             String sessionKey = jsonObject.getString("session_key");
             String openid = jsonObject.getString("openid");
-            User user = new User();
-            user.setOpenId(openid);
-            userMapper.insertSelective(user);
+
+            try{
+                User user = new User();
+                user.setOpenId(openid);
+                userMapper.insertSelective(user);
+            } catch (Exception e){
+                logger.error("conflict primary key");
+            }
+
+
             String sId = create3rdSession(openid, sessionKey);
             SessionId sessionId = new SessionId();
             sessionId.setSessionid(sId);

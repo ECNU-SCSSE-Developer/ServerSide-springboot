@@ -31,6 +31,6 @@ public class WebAppConfig extends WebMvcConfigurationSupport {
     protected void addInterceptors(InterceptorRegistry registry) {
         super.addInterceptors(registry);
         registry.addInterceptor(myInterceptor()).addPathPatterns("/**")
-                .excludePathPatterns("/onLogin");
+                .excludePathPatterns("/tia/onLogin");
     }
 }

@@ -1,5 +1,8 @@
 package com.tia.springbootserver.entity;
 
+import org.springframework.context.annotation.Configuration;
+
+@Configuration
 public class RecruitType {
     private Integer recruitId;
 

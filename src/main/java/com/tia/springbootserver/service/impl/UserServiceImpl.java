@@ -52,7 +52,14 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserWithSplitContacts getByIdWithSplitContacts(String studentId) {
-        UserWithSplitContacts temp = new UserWithSplitContacts(userMapper.selectByStudentId(studentId));
+        User tempUser = userMapper.selectByStudentId(studentId);
+        UserWithSplitContacts temp;
+        if (tempUser==null) {
+            temp = new UserWithSplitContacts();
+            return temp;
+        }
+        else
+            temp = new UserWithSplitContacts(tempUser);
         String[] contactsTemp = temp.getContacts().split(";");
         try {
             temp.setQq(contactsTemp[0]);

@@ -25,4 +25,8 @@ public interface RecruitService {
     PageInfo<User> getApplicantsInfo(Integer recruitId, Integer pageNum, Integer pageSize);
     List<User> getApplicantsInfoNotOnPage(Integer recruitId);
 
+    List<Recruitment> findRecruitByType(String type);
+    int addTypeForRecruit(RecruitType record);
+    int deleteTypeForRecruit(RecruitType record);
+
 }
