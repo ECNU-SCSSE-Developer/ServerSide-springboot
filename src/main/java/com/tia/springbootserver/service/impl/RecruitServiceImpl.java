@@ -156,7 +156,6 @@ public class RecruitServiceImpl implements RecruitService {
 
     @Override
     public List<Recruitment> findRecruitByType(String type) {
-//        List<RecruitType> selectedRecruit = new ArrayList<>();
         List<Recruitment> result = new ArrayList<>();
         Set<Integer> selectedRecruitId = new HashSet<>();
         String[] temp = type.split(";");
@@ -180,15 +179,26 @@ public class RecruitServiceImpl implements RecruitService {
 
     @Override
     public int addTypeForRecruit(RecruitType record) {
-        return recruitTypeMapper.insert(record);
+        List<Recruitment> result = new ArrayList<>();
+        String[] temp = record.getRecruitType().split(";");
+
+        if (temp==null){
+            recruitTypeMapper.insert(record);
+        }
+        else{
+            for (String each : temp){
+                RecruitType recruitType = new RecruitType();
+                recruitType.setRecruitId(record.getRecruitId());
+                recruitType.setRecruitType(each);
+                recruitTypeMapper.insert(recruitType);
+            }
+
+        }
+        return 0;
 
 
     }
 
-//    @Override
-//    public int deleteTypeForRecruit(Integer recruitId, String type) {
-//        return recruitTypeMapper.deleteByRecord(recruitId,type);
-//    }
 
     @Override
     public int deleteTypeForRecruit(RecruitType record) {
