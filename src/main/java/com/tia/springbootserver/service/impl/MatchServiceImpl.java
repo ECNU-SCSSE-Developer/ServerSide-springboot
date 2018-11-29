@@ -11,7 +11,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Service(value = "matchService")
 public class MatchServiceImpl implements MatchService {
@@ -46,13 +48,20 @@ public class MatchServiceImpl implements MatchService {
     public List<Match> findMatchByType(String type) {
 
         String[] typeList = type.split(";");
-        List<MatchType> selectedType = new ArrayList<>();
+        Set<Integer> selectedTypeId = new HashSet<>();
         List<Match> result = new ArrayList<>();
-        for (String each : typeList){
-            selectedType.addAll(matchTypeMapper.selectByType(each));
+        if (typeList!=null){
+            for (String each : typeList){
+                for (MatchType tempResult: matchTypeMapper.selectByType(each))
+                    selectedTypeId.add(tempResult.getMatchId());
+            }
         }
-        for (MatchType eachMatch : selectedType){
-            result.add(matchMapper.selectByPrimaryKey(eachMatch.getMatchId()));
+        else{
+            for (MatchType tempResult: matchTypeMapper.selectByType(type))
+                selectedTypeId.add(tempResult.getMatchId());
+        }
+        for (Integer eachMatchId : selectedTypeId){
+            result.add(matchMapper.selectByPrimaryKey(eachMatchId));
         }
         return result;
 

@@ -21,9 +21,9 @@ public class MatchController {
 
 
     @GetMapping(value = "/tia/typedMatch",produces = {"application/json;charset=UTF-8"})
-    public Object getMatchByTyped(String type)
+    public Object getMatchByTyped(String matchType)
     {
-        return matchService.findMatchByType(type);
+        return matchService.findMatchByType(matchType);
     }
 
     @GetMapping(value = "/tia/match",produces = {"application/json;charset=UTF-8"})
