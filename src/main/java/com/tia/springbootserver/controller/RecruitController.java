@@ -47,6 +47,8 @@ public class RecruitController {
 
     @DeleteMapping(value = "/tia/typedRecruit", produces = {"application/json;charset=UTF-8"})
     public Object deleteTypeForRecruit(RecruitType record){
+        if (record.getRecruitType()==null)
+            record.setRecruitType("%");
         return recruitService.deleteTypeForRecruit(record);
     }
 

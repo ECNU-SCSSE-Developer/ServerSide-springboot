@@ -25,6 +25,6 @@ public interface RecruitTypeMapper {
 
 
     @Delete("DELETE FROM `Recruit_Type` WHERE \n" +
-            "`recruit_id` = #{recruitId} and `recruit_type` = #{recruitType} \n")
+            "`recruit_id` = #{recruitId} and `recruit_type` like #{recruitType} \n")
     int deleteByRecord(RecruitType record);
 }
