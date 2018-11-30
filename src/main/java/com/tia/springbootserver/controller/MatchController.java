@@ -4,12 +4,15 @@ package com.tia.springbootserver.controller;
 import com.tia.springbootserver.entity.MatchType;
 import com.tia.springbootserver.service.MatchService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.core.io.ClassPathResource;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
+import org.springframework.util.StreamUtils;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -58,6 +61,27 @@ public class MatchController {
         }
         else
             return matchService.getMatchById(-1);
+    }
+//
+//    @GetMapping(value = "/tia/match/image", produces = MediaType.IMAGE_JPEG_VALUE)
+//    public void getImage(HttpServletResponse response) throws IOException {
+//
+//        ClassPathResource imgFile = new ClassPathResource("image/sid.jpg");
+//
+//        response.setContentType(MediaType.IMAGE_JPEG_VALUE);
+//        StreamUtils.copy(imgFile.getInputStream(), response.getOutputStream());
+//    }
+
+    @GetMapping(value = "/tia/match/image/{imageId}", produces = MediaType.IMAGE_JPEG_VALUE)
+    public ResponseEntity<byte[]> getImage(@PathVariable String imageId) throws IOException {
+
+        ClassPathResource imgFile = new ClassPathResource("image/"+imageId+".jpg");
+        byte[] bytes = StreamUtils.copyToByteArray(imgFile.getInputStream());
+
+        return ResponseEntity
+                .ok()
+                .contentType(MediaType.IMAGE_JPEG)
+                .body(bytes);
     }
 
 
