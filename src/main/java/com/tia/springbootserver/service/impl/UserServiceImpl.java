@@ -73,8 +73,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public int insertUser(User user) {
-        user.setOpenId(null);
-        return userMapper.insertSelective(user);
+        return userMapper.updateByPrimaryKeySelective(user);
     }
 
     @Override
