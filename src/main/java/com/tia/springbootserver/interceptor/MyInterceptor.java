@@ -33,14 +33,16 @@ public class MyInterceptor implements HandlerInterceptor {
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) {
         String sessionid = request.getHeader("sessionid");
-        if (sessionid == null){
+        logger.info("sessionid:" + sessionid);
+        String str = stringRedisTemplate.opsForValue().get(sessionid);
+        logger.info("str:" + str);
+        if (str == null){
             logger.info("拒绝访问");
             return false;
         } else {
-            String str = stringRedisTemplate.opsForValue().get(sessionid);
             try {
                 String[] strarr = str.split("#");
-                logger.info("openid:" + strarr[1]);//strarr[1]中存的是openid
+                logger.info("Get openid:" + strarr[1]);//strarr[1]中存的是openid
                 //将openid放入参数中
                 request.setAttribute("openId", strarr[1]);
             }
