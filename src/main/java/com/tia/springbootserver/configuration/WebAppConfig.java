@@ -31,6 +31,7 @@ public class WebAppConfig extends WebMvcConfigurationSupport {
     protected void addInterceptors(InterceptorRegistry registry) {
         super.addInterceptors(registry);
         registry.addInterceptor(myInterceptor()).addPathPatterns("/**")
-                .excludePathPatterns("/tia/onLogin");
+                .excludePathPatterns("/tia/onLogin")
+                .excludePathPatterns("/tia/match/image/{imageId}");
     }
 }
