@@ -49,6 +49,16 @@ public class RecruitServiceImpl implements RecruitService {
     }
 
     @Override
+    public List<Recruitment> findRecruitByMatchId(String matchName) {
+        return recruitmentMapper.selectByMatchName(matchName);
+    }
+
+    @Override
+    public List<String> findAllRecruitType() {
+        return recruitTypeMapper.findAllType();
+    }
+
+    @Override
     public int createRecruit(Recruitment recruitment) {
         return recruitmentMapper.insertSelective(recruitment);
     }

@@ -8,6 +8,12 @@ import java.util.List;
 
 
 public interface RecruitService {
+
+
+    List<Recruitment> findRecruitByMatchId(String matchName);
+    List<String> findAllRecruitType();
+
+
     int createRecruit(Recruitment recruitment);
     int createRecruitWithId(Recruitment recruitment);
     int updateRecruitInfo(Recruitment recruitment);

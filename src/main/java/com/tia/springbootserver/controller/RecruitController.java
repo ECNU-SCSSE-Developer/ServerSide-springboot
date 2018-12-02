@@ -35,6 +35,21 @@ public class RecruitController {
     private static final Logger logger = LoggerFactory.getLogger(RecruitController.class);
 
 
+    @GetMapping(value = "/tia/allType")
+    public Object findAllRecruitType(){
+        return recruitService.findAllRecruitType();
+    }
+
+    @GetMapping(value = "/tia/recruit/match")
+    public Object findRecruitByMatch(String matchName){
+        return recruitService.findRecruitByMatchId(matchName);
+    }
+
+
+
+
+
+
     @GetMapping(value = "/tia/typedRecruit", produces = {"application/json;charset=UTF-8"})
     public Object findRecruitByType(String recruitType){
         return recruitService.findRecruitByType(recruitType);

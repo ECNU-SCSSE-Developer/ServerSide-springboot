@@ -17,6 +17,9 @@ public interface RecruitTypeMapper {
     int insertSelective(RecruitType record);
 
 
+    @Select("SELECT DISTINCT `recruit_type` FROM `Recruit_Type`")
+    List<String> findAllType();
+
     @Select("SELECT * FROM `Recruit_Type` WHERE recruit_type = #{type}")
     List<RecruitType> findRecruitByType(String type);
 

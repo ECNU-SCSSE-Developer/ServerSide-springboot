@@ -20,6 +20,8 @@ public interface RecruitmentMapper {
 
     Recruitment selectByPrimaryKey(Integer recruitId);
 
+
+
     int updateByPrimaryKeySelective(Recruitment record);
 
     int updateByPrimaryKey(Recruitment record);
@@ -27,6 +29,12 @@ public interface RecruitmentMapper {
     @Select("SELECT * FROM `Recruitment` \n" +
             "WHERE recruit_name LIKE \"%${recruitName}%\"")
     List<Recruitment> selectByName(@Param(value = "recruitName") String recruitName);
+
+
+    @Select("SELECT * FROM `Recruitment` \n" +
+            "WHERE match_name LIKE \"${matchName}\"")
+    List<Recruitment> selectByMatchName(@Param(value = "matchName") String matchName);
+
 
     @Select("SELECT * FROM `Recruitment`")
     List<Recruitment> selectAll();
