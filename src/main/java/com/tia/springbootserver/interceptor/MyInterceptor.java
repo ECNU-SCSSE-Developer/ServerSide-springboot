@@ -33,6 +33,10 @@ public class MyInterceptor implements HandlerInterceptor {
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) {
         String sessionid = request.getHeader("sessionid");
+        if(sessionid==null){
+            logger.info("无法获取sessionId");
+            return false;
+        }
         logger.info("sessionid:" + sessionid);
         String str = stringRedisTemplate.opsForValue().get(sessionid);
         logger.info("str:" + str);

@@ -33,4 +33,9 @@ public class LoginController {
     public String test(@RequestAttribute(name = "openid") String openid) {
         return openid;
     }
+
+    @GetMapping(value = {"/tia","/"})
+    public Object rootWeb(){
+        return "It seems like you're LOST...\n";
+    }
 }
