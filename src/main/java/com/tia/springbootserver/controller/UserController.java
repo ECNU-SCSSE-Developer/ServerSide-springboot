@@ -38,13 +38,18 @@ public class UserController {
     public Object createUser(@RequestBody User user, @RequestAttribute(value = "openId")String openId)
     {
         System.out.println(openId);
-        System.out.println(user.toString());
         user.setOpenId(openId);
+        System.out.println(user.toString());
         return userService.insertUser(user);
     }
 
     @PutMapping(value = "/tia/user",produces = {"application/json;charset=UTF-8"})
-    public Object updateUserInfo(User user){return userService.updateUserInfo(user);}
+    public Object updateUserInfo(@RequestBody User user, @RequestAttribute(value = "openId")String openId){
+        System.out.println(openId);
+        user.setOpenId(openId);
+        System.out.println(user.toString());
+        return userService.updateUserInfo(user);
+    }
 
     @GetMapping(value = "/tia/user/focused", produces = {"application/json;charset=UTF-8"})
     public Object getFocusedRecruitment(String studentId,

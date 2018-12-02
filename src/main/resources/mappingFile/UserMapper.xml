@@ -83,6 +83,9 @@
   <update id="updateByPrimaryKeySelective" parameterType="com.tia.springbootserver.entity.User">
     update User
     <set>
+      <if test="studentId != null">
+        student_id = #{studentId,jdbcType=VARCHAR},
+      </if>
       <if test="studentName != null">
         student_name = #{studentName,jdbcType=VARCHAR},
       </if>
@@ -106,7 +109,9 @@
   </update>
   <update id="updateByPrimaryKey" parameterType="com.tia.springbootserver.entity.User">
     update User
-    set student_name = #{studentName,jdbcType=VARCHAR},
+    set
+      student_id = #{studentId,jdbcType=VARCHAR},
+      student_name = #{studentName,jdbcType=VARCHAR},
       grade = #{grade,jdbcType=INTEGER},
       major = #{major,jdbcType=VARCHAR},
       specialty = #{specialty,jdbcType=VARCHAR},

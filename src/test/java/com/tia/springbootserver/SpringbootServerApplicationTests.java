@@ -1,5 +1,7 @@
 package com.tia.springbootserver;
 
+import com.tia.springbootserver.entity.User;
+import com.tia.springbootserver.mapper.UserMapper;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,18 +12,22 @@ import org.springframework.test.context.junit4.SpringRunner;
 @SpringBootTest
 public class SpringbootServerApplicationTests {
 
+    @Autowired
+    UserMapper userMapper;
+
 
     @Test
     public void contextLoads() {
     }
-//
+
+
 //    @Test
-//    public void imageTest() throws IOException {
-//        String readFilePath = "/Users/fuhy/IdeaProjects/ServerSide-springboot/target/classes/image/IMG_5796.jpg";
-//        String saveFilePath = "/Users/fuhy/IdeaProjects/ServerSide-springboot/target/classes/image/test.jpg";
-//        imageService.uploadImage(1,imageService.readPicture(readFilePath));
-//        ByteArrayInputStream byteArrayInputStream = new ByteArrayInputStream(imageService.downloadImage(1).getBytes());
-//        imageService.savePicture(saveFilePath, ImageIO.read(byteArrayInputStream));
+//    public void userMapperTest(){
+//        User user = new User();
+//        user.setStudentId("1016");
+//        user.setOpenId("o4QwQ5VIJtesWAcQZlkq6JbhwJNc");
+//        userMapper.updateByPrimaryKey(user);
 //    }
+//
 
 }
