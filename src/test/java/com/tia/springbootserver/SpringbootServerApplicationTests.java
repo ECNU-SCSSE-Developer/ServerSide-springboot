@@ -28,6 +28,5 @@ public class SpringbootServerApplicationTests {
 //        user.setOpenId("o4QwQ5VIJtesWAcQZlkq6JbhwJNc");
 //        userMapper.updateByPrimaryKey(user);
 //    }
-//
 
 }

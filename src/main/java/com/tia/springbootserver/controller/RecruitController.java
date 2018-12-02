@@ -1,8 +1,10 @@
 package com.tia.springbootserver.controller;
 
+import com.tia.springbootserver.entity.MatchRecruit;
 import com.tia.springbootserver.entity.RecruitApplicants;
 import com.tia.springbootserver.entity.RecruitType;
 import com.tia.springbootserver.entity.Recruitment;
+import com.tia.springbootserver.entity.returnType.RecruitStudent;
 import com.tia.springbootserver.interceptor.MyInterceptor;
 import com.tia.springbootserver.mapper.UserRegisteredMapper;
 import com.tia.springbootserver.service.MatchService;
@@ -27,8 +29,6 @@ public class RecruitController {
     @Autowired
     private MatchService matchService;
     @Autowired
-    private RecruitApplicants recruitApplicants;
-    @Autowired
     private UserRegisteredMapper userRegisteredMapper;
 
 
@@ -41,12 +41,12 @@ public class RecruitController {
     }
 
     @PostMapping(value = "/tia/typedRecruit", produces = {"application/json;charset=UTF-8"})
-    public Object addTypeForRecruit(RecruitType record){
+    public Object addTypeForRecruit(@RequestBody RecruitType record){
         return recruitService.addTypeForRecruit(record);
     }
 
     @DeleteMapping(value = "/tia/typedRecruit", produces = {"application/json;charset=UTF-8"})
-    public Object deleteTypeForRecruit(RecruitType record){
+    public Object deleteTypeForRecruit(@RequestBody RecruitType record){
         if (record.getRecruitType()==null)
             record.setRecruitType("%");
         return recruitService.deleteTypeForRecruit(record);
@@ -55,7 +55,7 @@ public class RecruitController {
 
     @Transactional
     @PostMapping(value = "/tia/recruit", produces = {"application/json;charset=UTF-8"})
-    public Object createRecruit(Recruitment recruitment){
+    public Object createRecruit(@RequestBody Recruitment recruitment){
         recruitment.setMatchName(matchService.getMatchById(recruitment.getMatchId()).getMatchName());
         return recruitService.createRecruit(recruitment);
     }
@@ -95,7 +95,7 @@ public class RecruitController {
 
 
     @PutMapping(value = "/tia/recruit", produces = {"application/json;charset=UTF-8"})
-    public Object updateRecruitInfo(Recruitment recruitment){
+    public Object updateRecruitInfo(@RequestBody Recruitment recruitment){
         // 防止match的不一致
         recruitment.setMatchId(null);
         recruitment.setMatchName(null);
@@ -105,7 +105,7 @@ public class RecruitController {
 
     // 和User的联系集都会被删除
     @DeleteMapping(value = "/tia/recruit", produces = {"application/json;charset=UTF-8"})
-    public Object deleteRecruit(Integer recruitId){
+    public Object deleteRecruit(@RequestBody Integer recruitId){
         recruitService.deleteRecruitFromUser(recruitId);
         return recruitService.deleteRecruit(recruitId);
     }
@@ -117,28 +117,29 @@ public class RecruitController {
 
 
     @PutMapping(value = "/tia/recruit/bind-match", produces = {"application/json;charset=UTF-8"})
-    public Object updateBindMatch(Integer recruitId, Integer matchId)
+    public Object updateBindMatch(@RequestBody MatchRecruit matchRecruit)
     {
-        String matchName = matchService.getMatchById(matchId).getMatchName();
-        return recruitService.bindToMatch(recruitId,matchId,matchName);
+        String matchName = matchService.getMatchById(matchRecruit.getMatchId()).getMatchName();
+        return recruitService.bindToMatch(matchRecruit.getRecruitId(),matchRecruit.getMatchId(),matchName);
     }
 
 
     //TODO: register和apply的含义以这一层为准 我懵逼
     //申请加入一个Recruit并关注
     @PutMapping(value = "/tia/applicant", produces = {"application/json;charset=UTF-8"})
-    public Object applyRecruit(Integer recruitId, String studentId){
-
-        recruitApplicants.setRecruitId(recruitId);
-        recruitApplicants.setApplicantId(studentId);
+    public Object applyRecruit(@RequestBody RecruitStudent recruitStudent){
+        RecruitApplicants recruitApplicants = new RecruitApplicants();
+        recruitApplicants.setRecruitId(recruitStudent.getRecruitId());
+        recruitApplicants.setApplicantId(recruitStudent.getStudentId());
         return recruitService.register(recruitApplicants);
     }
 
     //取消申请一个Recruit 但不会取消关注
     @DeleteMapping(value = "/tia/applicant", produces = {"application/json;charset=UTF-8"})
-    public Object cancelApplyRecruit(Integer recruitId, String studentId){
-        recruitApplicants.setRecruitId(recruitId);
-        recruitApplicants.setApplicantId(studentId);
+    public Object cancelApplyRecruit(@RequestBody RecruitStudent recruitStudent){
+        RecruitApplicants recruitApplicants = new RecruitApplicants();
+        recruitApplicants.setRecruitId(recruitStudent.getRecruitId());
+        recruitApplicants.setApplicantId(recruitStudent.getStudentId());
         return recruitService.unregister(recruitApplicants);
     }
 
@@ -159,22 +160,22 @@ public class RecruitController {
 
     //通过申请
     @PutMapping(value = "/tia/registered", produces = {"application/json;charset=UTF-8"})
-    public Object acceptUser(Integer recruitId, @RequestParam(name = "studentId") String applicantId){
+    public Object acceptUser(@RequestBody RecruitApplicants recruitApplicants){
         //
-        if (userRegisteredMapper.selectUserRegistered(applicantId,recruitId)==null) {
-            Recruitment recruitment = recruitService.findRecruitById(recruitId);
+        if (userRegisteredMapper.selectUserRegistered(recruitApplicants.getApplicantId(),recruitApplicants.getRecruitId())==null) {
+            Recruitment recruitment = recruitService.findRecruitById(recruitApplicants.getRecruitId());
             recruitment.setRegisteredNumber(recruitment.getRegisteredNumber()+1);
             recruitService.updateRecruitInfo(recruitment);
-            return userService.acceptUser(recruitId,applicantId);
+            return userService.acceptUser(recruitApplicants.getRecruitId(),recruitApplicants.getApplicantId());
         }
         return 0;
         //
     }
 
     @DeleteMapping(value = "/tia/registered", produces = {"application/json;charset=UTF-8"})
-    public Object cancelAcceptUser(Integer recruitId, @RequestParam(name = "studentId") String applicantId)
+    public Object cancelAcceptUser(@RequestBody RecruitApplicants recruitApplicants)
     {
-        return userService.cancelAcceptUser(recruitId,applicantId);
+        return userService.cancelAcceptUser(recruitApplicants.getRecruitId(),recruitApplicants.getApplicantId());
     }
 
 }
