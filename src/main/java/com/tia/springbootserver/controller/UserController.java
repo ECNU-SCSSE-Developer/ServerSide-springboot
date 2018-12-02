@@ -1,21 +1,28 @@
 package com.tia.springbootserver.controller;
 
 
+import com.tia.springbootserver.entity.RecruitApplicants;
 import com.tia.springbootserver.entity.User;
 import com.tia.springbootserver.mapper.UserFocusedMapper;
 import com.tia.springbootserver.service.UserService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
 import java.util.Map;
 
 @RestController
+@EnableWebMvc
 public class UserController {
 
     @Autowired
     private UserService userService;
     @Autowired
     private UserFocusedMapper userFocusedMapper;
+
+    private final static Logger logger = LoggerFactory.getLogger(UserController.class);
 
 
     @GetMapping(value = "/tia/user",produces = {"application/json;charset=UTF-8"})
@@ -65,16 +72,17 @@ public class UserController {
             return userService.getFocusedRecruitmentNotOnPage(studentId);
     }
 
-    @PutMapping(value = "/tia/user/focused", produces = {"application/json;charset=UTF-8"})
-    public Object addFocusedRecruitment(String studentId, Integer recruitId){
-        if(userFocusedMapper.selectUserFocused(recruitId,studentId)==null)
-            return userService.addFocusedRecruitment(studentId, recruitId);
+    @PutMapping(value = "/tia/user/focused")
+    public Object addFocusedRecruitment(@RequestBody RecruitApplicants recruitApplicants){
+        logger.info(recruitApplicants.toString());
+        if(userFocusedMapper.selectUserFocused(recruitApplicants.getRecruitId(),recruitApplicants.getApplicantId())==null)
+            return userService.addFocusedRecruitment(recruitApplicants.getApplicantId(),recruitApplicants.getRecruitId());
         return 0;
     }
 
     @DeleteMapping(value = "/tia/user/focused", produces = {"application/json;charset=UTF-8"})
-    public Object deleteFocusedRecruitment(String studentId, Integer recruitId){
-        return userService.deleteFocusedRecruitment(studentId, recruitId);
+    public Object deleteFocusedRecruitment(@RequestBody RecruitApplicants recruitApplicants){
+        return userService.deleteFocusedRecruitment(recruitApplicants.getApplicantId(), recruitApplicants.getRecruitId());
     }
 
     @GetMapping(value = "/tia/user/applied", produces = {"application/json;charset=UTF-8"})

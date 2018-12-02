@@ -70,7 +70,6 @@ public class MatchController {
 
     @GetMapping(value = "/tia/match/image/{imageId}", produces = MediaType.IMAGE_JPEG_VALUE)
     public ResponseEntity<byte[]> getImage(@PathVariable String imageId) throws IOException {
-
         ClassPathResource imgFile = new ClassPathResource("image/"+imageId+".jpg");
         byte[] bytes = StreamUtils.copyToByteArray(imgFile.getInputStream());
 
@@ -79,7 +78,6 @@ public class MatchController {
                 .contentType(MediaType.IMAGE_JPEG)
                 .body(bytes);
     }
-
 
 
 
